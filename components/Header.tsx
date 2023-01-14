@@ -71,7 +71,7 @@ const Header = ({
           disableGutters
           sx={{
             display: "flex",
-            justifyContent: { xs: "space-between", md: "flex-end" },
+            justifyContent: "space-between",
           }}
         >
           <Box sx={{ display: { xs: "flex", md: "none" } }}>
@@ -97,6 +97,15 @@ const Header = ({
                 margin: 10,
               }}
             />
+          </Box>
+
+          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+            <Typography variant="h6">
+              Hello,{" "}
+              <Typography component={"span"} variant="h5" fontWeight={600}>
+                Khalifa
+              </Typography>
+            </Typography>
           </Box>
 
           <Box>
