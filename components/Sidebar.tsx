@@ -11,6 +11,7 @@ import ListItemText from "@mui/material/ListItemText";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import NotesIcon from "@mui/icons-material/Notes";
 import Image from "next/image";
+import Link from "next/link";
 
 const Sidebar = ({
   drawerWidth,
@@ -37,15 +38,17 @@ const Sidebar = ({
       <Toolbar
         sx={{ display: "flex", justifyContent: "center", alignItems: "center" }}
       >
-        <Image
-          src="/kplc.png"
-          alt="logo"
-          width={100}
-          height={100}
-          style={{
-            margin: 20,
-          }}
-        />
+        <Link href={"/"}>
+          <Image
+            src="/kplc.png"
+            alt="logo"
+            width={100}
+            height={100}
+            style={{
+              margin: 20,
+            }}
+          />
+        </Link>
       </Toolbar>
       <Box sx={{ overflow: "auto" }}>
         <List>
@@ -79,9 +82,9 @@ const Sidebar = ({
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
             width: drawerWidth,
-            // background: "rgba(230, 62, 0, 1)",
-            // color: "white",
-            // "& svg": { color: "white" },
+            background: "#0F1222",
+            color: "white",
+            "& svg": { color: "white" },
           },
         }}
       >
@@ -94,10 +97,9 @@ const Sidebar = ({
           "& .MuiDrawer-paper": {
             boxSizing: "border-box",
             width: drawerWidth,
-            // background: "rgba(230, 62, 0, 1)",
-            // borderRight: "none",
-            // color: "white",
-            // "& svg": { color: "white" },
+            background: "#0F1222",
+            color: "white",
+            "& svg": { color: "white" },
           },
         }}
         open

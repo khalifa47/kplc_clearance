@@ -112,11 +112,17 @@ const Header = ({
             <Box sx={{ display: "flex", alignItems: "center" }}>
               <Tooltip title="Open settings" placement="bottom-start">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  {/* <Avatar alt={userName} src={userPhoto} /> */}
-                  <Avatar>K</Avatar>
+                  <Avatar
+                    alt={"username"}
+                    src={
+                      "https://i.pinimg.com/736x/d9/56/9b/d9569bbed4393e2ceb1af7ba64fdf86a.jpg"
+                    }
+                  />
                 </IconButton>
               </Tooltip>
-              <Typography ml={1}>Khalifa Fumo</Typography>
+              <Typography ml={1} fontWeight={700}>
+                Khalifa Fumo
+              </Typography>
             </Box>
 
             <Menu
