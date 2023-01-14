@@ -7,7 +7,7 @@ export default function Head() {
         name="description"
         content="An app used for clearance of employees"
       />
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/kplc.ico" />
     </>
   );
 }
