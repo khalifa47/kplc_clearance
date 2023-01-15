@@ -4,6 +4,7 @@ import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
 import Table from "@mui/material/Table";
+import Chip from "@mui/material/Chip";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
@@ -16,6 +17,11 @@ import { createData } from "@/utils/createData";
 
 const Row = ({ row }: { row: ReturnType<typeof createData> }) => {
   const [open, setOpen] = useState(false);
+  const rowStatus = {
+    pending: <Chip label="Pending" color="error" />,
+    progress: <Chip label="In Progress" color="warning" />,
+    approved: <Chip label="Approved" color="success" />,
+  };
 
   return (
     <>
@@ -32,7 +38,7 @@ const Row = ({ row }: { row: ReturnType<typeof createData> }) => {
         <TableCell component="th" scope="row" align="center">
           {row.user}
         </TableCell>
-        <TableCell align="center">{row.status}</TableCell>
+        <TableCell align="center">{rowStatus[row.status]}</TableCell>
         <TableCell align="center">{row.date}</TableCell>
       </TableRow>
 
@@ -73,7 +79,7 @@ const Row = ({ row }: { row: ReturnType<typeof createData> }) => {
                         {departmentsStatus.department}
                       </TableCell>
                       <TableCell align="center">
-                        {departmentsStatus.status}
+                        {rowStatus[departmentsStatus.status]}
                       </TableCell>
                       <TableCell align="center">
                         {departmentsStatus.certifier}

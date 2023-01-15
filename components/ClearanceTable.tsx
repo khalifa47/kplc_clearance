@@ -1,5 +1,6 @@
 "use client";
 
+import Typography from "@mui/material/Typography";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
@@ -11,7 +12,7 @@ import { createData } from "@/utils/createData";
 import Row from "./Row";
 
 const rows = [
-  createData("John Doe", "progress", "20 Dec 2022", [
+  createData("John Doe", "pending", "20 Dec 2022", [
     {
       department: "ICT",
       status: "pending",
@@ -20,26 +21,26 @@ const rows = [
     },
     {
       department: "ICT",
-      status: "pending",
-      certifier: "certifier",
-      date: "21 Dec 2022",
-    },
-  ]),
-  createData("John Doe", "progress", "20 Dec 2022", [
-    {
-      department: "ICT",
-      status: "pending",
-      certifier: "certifier",
-      date: "21 Dec 2022",
-    },
-    {
-      department: "ICT",
-      status: "pending",
+      status: "progress",
       certifier: "certifier",
       date: "21 Dec 2022",
     },
   ]),
-  createData("John Doe", "progress", "20 Dec 2022", [
+  createData("John Doe", "approved", "20 Dec 2022", [
+    {
+      department: "ICT",
+      status: "approved",
+      certifier: "certifier",
+      date: "21 Dec 2022",
+    },
+    {
+      department: "ICT",
+      status: "approved",
+      certifier: "certifier",
+      date: "21 Dec 2022",
+    },
+  ]),
+  createData("John Doe", "pending", "20 Dec 2022", [
     {
       department: "ICT",
       status: "pending",
@@ -56,13 +57,13 @@ const rows = [
   createData("Johcrecn Doevthy", "progress", "20 Dec 2022", [
     {
       department: "ICT",
-      status: "pending",
+      status: "progress",
       certifier: "certifier",
       date: "21 Dec 2022",
     },
     {
       department: "ICT",
-      status: "pending",
+      status: "approved",
       certifier: "certifier",
       date: "21 Dec 2022",
     },
@@ -70,13 +71,13 @@ const rows = [
   createData("John Doe", "progress", "20 Dec 2022", [
     {
       department: "ICT",
-      status: "pending",
+      status: "progress",
       certifier: "certifier",
       date: "21 Dec 2022",
     },
     {
       department: "ICT",
-      status: "pending",
+      status: "progress",
       certifier: "certifier",
       date: "21 Dec 2022",
     },
@@ -88,6 +89,18 @@ export default function CollapsibleTable() {
     <TableContainer component={Paper} elevation={2}>
       <Table aria-label="collapsible table">
         <TableHead>
+          <TableRow sx={{ "& > *": { border: "unset" } }}>
+            <TableCell colSpan={3}>
+              <Typography variant="h5" fontWeight={600}>
+                Clearances
+              </Typography>
+            </TableCell>
+            <TableCell>
+              <Typography variant="h6" fontWeight={600}>
+                Search
+              </Typography>
+            </TableCell>
+          </TableRow>
           <TableRow>
             <TableCell />
             <TableCell sx={{ fontWeight: 600 }} align="center">
