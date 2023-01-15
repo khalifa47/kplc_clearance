@@ -27,7 +27,7 @@ const rows = [
       date: "21 Dec 2022",
     },
   ]),
-  createData("John Doe", "approved", "20 Dec 2022", [
+  createData("Jack Doe", "approved", "20 Dec 2022", [
     {
       department: "ICT",
       status: "approved",
@@ -41,7 +41,7 @@ const rows = [
       date: "21 Dec 2022",
     },
   ]),
-  createData("John Doe", "pending", "20 Dec 2022", [
+  createData("Jill Doe", "pending", "20 Dec 2022", [
     {
       department: "ICT",
       status: "pending",
@@ -69,7 +69,7 @@ const rows = [
       date: "21 Dec 2022",
     },
   ]),
-  createData("John Doe", "progress", "20 Dec 2022", [
+  createData("Jane Doe", "progress", "20 Dec 2022", [
     {
       department: "ICT",
       status: "progress",
