@@ -10,6 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import { createData } from "@/utils/createData";
 import Row from "./Row";
+import SearchBar from "./SearchBar";
 
 const rows = [
   createData("John Doe", "pending", "20 Dec 2022", [
@@ -96,9 +97,7 @@ export default function CollapsibleTable() {
               </Typography>
             </TableCell>
             <TableCell>
-              <Typography variant="h6" fontWeight={600}>
-                Search
-              </Typography>
+              <SearchBar />
             </TableCell>
           </TableRow>
           <TableRow>
