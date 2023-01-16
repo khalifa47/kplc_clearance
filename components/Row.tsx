@@ -38,8 +38,8 @@ const Row = ({ row }: { row: ReturnType<typeof createData> }) => {
         <TableCell component="th" scope="row" align="center">
           {row.user}
         </TableCell>
-        <TableCell align="center">{rowStatus[row.status]}</TableCell>
         <TableCell align="center">{row.date}</TableCell>
+        <TableCell align="center">{rowStatus[row.status]}</TableCell>
       </TableRow>
 
       {/* Sub Table */}
@@ -62,13 +62,13 @@ const Row = ({ row }: { row: ReturnType<typeof createData> }) => {
                       Department
                     </TableCell>
                     <TableCell align="center" sx={{ fontWeight: 600 }}>
-                      Status
-                    </TableCell>
-                    <TableCell align="center" sx={{ fontWeight: 600 }}>
                       Certified By
                     </TableCell>
                     <TableCell align="center" sx={{ fontWeight: 600 }}>
                       Date
+                    </TableCell>
+                    <TableCell align="center" sx={{ fontWeight: 600 }}>
+                      Status
                     </TableCell>
                   </TableRow>
                 </TableHead>
@@ -79,13 +79,13 @@ const Row = ({ row }: { row: ReturnType<typeof createData> }) => {
                         {departmentsStatus.department}
                       </TableCell>
                       <TableCell align="center">
-                        {rowStatus[departmentsStatus.status]}
-                      </TableCell>
-                      <TableCell align="center">
                         {departmentsStatus.certifier}
                       </TableCell>
                       <TableCell align="center">
                         {departmentsStatus.date}
+                      </TableCell>
+                      <TableCell align="center">
+                        {rowStatus[departmentsStatus.status]}
                       </TableCell>
                     </TableRow>
                   ))}

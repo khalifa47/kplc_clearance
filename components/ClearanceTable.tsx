@@ -106,10 +106,10 @@ export default function CollapsibleTable() {
               User
             </TableCell>
             <TableCell sx={{ fontWeight: 600 }} align="center">
-              Status
+              Date Initiated
             </TableCell>
             <TableCell sx={{ fontWeight: 600 }} align="center">
-              Date Initiated
+              Status
             </TableCell>
           </TableRow>
         </TableHead>
