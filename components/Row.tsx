@@ -13,9 +13,16 @@ import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useState } from "react";
-import { createData } from "@/utils/createData";
+import { createDataAdmin } from "@/utils/createData";
+import DepartmentsTable from "./DepartmentsTable";
 
-const Row = ({ row }: { row: ReturnType<typeof createData> }) => {
+const Row = ({
+  row,
+  userType,
+}: {
+  row: ReturnType<typeof createDataAdmin>;
+  userType: "admin" | "employee";
+}) => {
   const [open, setOpen] = useState(false);
   const rowStatus = {
     pending: <Chip label="Pending" color="error" />,
@@ -55,42 +62,7 @@ const Row = ({ row }: { row: ReturnType<typeof createData> }) => {
               >
                 Departments Status
               </Typography>
-              <Table size="small" aria-label="purchases">
-                <TableHead>
-                  <TableRow>
-                    <TableCell align="center" sx={{ fontWeight: 600 }}>
-                      Department
-                    </TableCell>
-                    <TableCell align="center" sx={{ fontWeight: 600 }}>
-                      Certified By
-                    </TableCell>
-                    <TableCell align="center" sx={{ fontWeight: 600 }}>
-                      Date
-                    </TableCell>
-                    <TableCell align="center" sx={{ fontWeight: 600 }}>
-                      Status
-                    </TableCell>
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {row.departmentStatuses.map((departmentsStatus) => (
-                    <TableRow key={departmentsStatus.department}>
-                      <TableCell component="th" scope="row" align="center">
-                        {departmentsStatus.department}
-                      </TableCell>
-                      <TableCell align="center">
-                        {departmentsStatus.certifier}
-                      </TableCell>
-                      <TableCell align="center">
-                        {departmentsStatus.date}
-                      </TableCell>
-                      <TableCell align="center">
-                        {rowStatus[departmentsStatus.status]}
-                      </TableCell>
-                    </TableRow>
-                  ))}
-                </TableBody>
-              </Table>
+              <DepartmentsTable departments={row.departmentStatuses} small />
             </Box>
           </Collapse>
         </TableCell>

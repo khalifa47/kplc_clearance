@@ -8,12 +8,13 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { createData } from "@/utils/createData";
+import { createDataAdmin, createDataEmployee } from "@/utils/createData";
 import Row from "./Row";
 import SearchBar from "./SearchBar";
+import DepartmentsTable from "./DepartmentsTable";
 
-const rows = [
-  createData("John Doe", "pending", "20 Dec 2022", [
+const rowsAdmin = [
+  createDataAdmin("John Doe", "pending", "20 Dec 2022", [
     {
       department: "ICT",
       status: "pending",
@@ -27,7 +28,7 @@ const rows = [
       date: "21 Dec 2022",
     },
   ]),
-  createData("Jack Doe", "approved", "20 Dec 2022", [
+  createDataAdmin("Jack Doe", "approved", "20 Dec 2022", [
     {
       department: "ICT",
       status: "approved",
@@ -41,7 +42,7 @@ const rows = [
       date: "21 Dec 2022",
     },
   ]),
-  createData("Jill Doe", "pending", "20 Dec 2022", [
+  createDataAdmin("Jill Doe", "pending", "20 Dec 2022", [
     {
       department: "ICT",
       status: "pending",
@@ -55,7 +56,7 @@ const rows = [
       date: "21 Dec 2022",
     },
   ]),
-  createData("Johcrecn Doevthy", "progress", "20 Dec 2022", [
+  createDataAdmin("Johcrecn Doevthy", "progress", "20 Dec 2022", [
     {
       department: "ICT",
       status: "progress",
@@ -69,7 +70,7 @@ const rows = [
       date: "21 Dec 2022",
     },
   ]),
-  createData("Jane Doe", "progress", "20 Dec 2022", [
+  createDataAdmin("Jane Doe", "progress", "20 Dec 2022", [
     {
       department: "ICT",
       status: "progress",
@@ -85,40 +86,69 @@ const rows = [
   ]),
 ];
 
-export default function CollapsibleTable() {
+const rowsEmployees = [
+  createDataEmployee({
+    department: "ICT",
+    status: "progress",
+    certifier: "Jon Doe",
+    date: "22 Dec 2022",
+  }),
+  createDataEmployee({
+    department: "Finance",
+    status: "pending",
+    certifier: "Jack Doe",
+    date: "21 Dec 2022",
+  }),
+  createDataEmployee({
+    department: "HR",
+    status: "approved",
+    certifier: "Jill Doe",
+    date: "23 Dec 2022",
+  }),
+];
+
+export default function ClearanceTable({
+  userType,
+}: {
+  userType: "admin" | "employee";
+}) {
   return (
     <TableContainer component={Paper} elevation={2}>
-      <Table aria-label="collapsible table">
-        <TableHead>
-          <TableRow sx={{ "& > *": { border: "unset" } }}>
-            <TableCell colSpan={3}>
-              <Typography variant="h5" fontWeight={600}>
-                Clearances
-              </Typography>
-            </TableCell>
-            <TableCell>
-              <SearchBar />
-            </TableCell>
-          </TableRow>
-          <TableRow>
-            <TableCell />
-            <TableCell sx={{ fontWeight: 600 }} align="center">
-              User
-            </TableCell>
-            <TableCell sx={{ fontWeight: 600 }} align="center">
-              Date Initiated
-            </TableCell>
-            <TableCell sx={{ fontWeight: 600 }} align="center">
-              Status
-            </TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {rows.map((row) => (
-            <Row key={row.user} row={row} />
-          ))}
-        </TableBody>
-      </Table>
+      {userType === "admin" ? (
+        <Table>
+          <TableHead>
+            <TableRow sx={{ "& > *": { border: "unset" } }}>
+              <TableCell colSpan={3}>
+                <Typography variant="h5" fontWeight={600}>
+                  Clearances
+                </Typography>
+              </TableCell>
+              <TableCell>
+                <SearchBar />
+              </TableCell>
+            </TableRow>
+            <TableRow>
+              <TableCell />
+              <TableCell sx={{ fontWeight: 600 }} align="center">
+                User
+              </TableCell>
+              <TableCell sx={{ fontWeight: 600 }} align="center">
+                Date Initiated
+              </TableCell>
+              <TableCell sx={{ fontWeight: 600 }} align="center">
+                Status
+              </TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {rowsAdmin.map((row) => (
+              <Row key={row.user} row={row} userType="admin" />
+            ))}
+          </TableBody>
+        </Table>
+      ) : (
+        <DepartmentsTable departments={rowsEmployees} />
+      )}
     </TableContainer>
   );
 }

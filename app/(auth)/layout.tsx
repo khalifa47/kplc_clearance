@@ -18,7 +18,7 @@ export default function LoginLayout({
           display: "flex",
           justifyContent: "center",
           alignItems: "center",
-          height: "100vh",
+          height: "98vh",
         }}
         component="body"
       >

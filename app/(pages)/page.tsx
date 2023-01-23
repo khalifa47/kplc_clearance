@@ -7,7 +7,7 @@ export default function Dashboard() {
   return (
     <main style={{ flexGrow: 1, padding: 10 }}>
       <Toolbar />
-      <ClearanceTable />
+      <ClearanceTable userType="employee" />
     </main>
   );
 }

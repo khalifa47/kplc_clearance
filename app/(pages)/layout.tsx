@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
-export default function RootLayout({
+export default function HomeLayout({
   children,
 }: {
   children: React.ReactNode;

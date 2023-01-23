@@ -1,13 +1,6 @@
-type DepartmentStatus = {
-  department: string;
-  status: Status;
-  certifier: string;
-  date: string;
-};
+import { DepartmentStatus, Status } from "./types";
 
-type Status = "progress" | "approved" | "pending";
-
-export const createData = (
+export const createDataAdmin = (
   user: string,
   status: Status,
   date: string,
@@ -20,3 +13,6 @@ export const createData = (
     departmentStatuses,
   };
 };
+
+export const createDataEmployee = (departments: DepartmentStatus) =>
+  departments;

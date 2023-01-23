@@ -9,10 +9,12 @@ import React, { useState } from "react";
 
 import LoginSharp from "@mui/icons-material/LoginSharp";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 const Login = () => {
   const [staffId, setStaffId] = useState<number>(12345);
   const [pass, setPass] = useState<string>("");
+  const router = useRouter();
 
   return (
     <Paper elevation={5} sx={{ p: 5 }}>
@@ -26,7 +28,7 @@ const Login = () => {
       >
         <Image src="/kplc.png" alt="logo" width={100} height={100} />
         <Typography variant="h6" fontWeight={600} mt={1}>
-          LOGIN TO THE KPLC CLEARANCE SYSTEM
+          THE KPLC CLEARANCE SYSTEM
         </Typography>
       </Box>
 
@@ -66,7 +68,7 @@ const Login = () => {
           size="small"
           color="primary"
           type={"submit"}
-          onClick={(e) => console.log(e.currentTarget.value)}
+          onClick={() => router.push("/")}
           endIcon={<LoginSharp />}
           variant="contained"
           sx={{ my: 1 }}
