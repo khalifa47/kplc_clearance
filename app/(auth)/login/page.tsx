@@ -10,11 +10,36 @@ import React, { useState } from "react";
 import LoginSharp from "@mui/icons-material/LoginSharp";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
+import { useFormik } from "formik";
+import * as yup from "yup";
+
+const validationSchema = yup.object({
+  staff_id: yup.number().required("Staff ID is required"),
+  password: yup
+    .string()
+    .min(8, "Password should be of minimum 8 characters length")
+    .required("Password is required"),
+});
 
 const Login = () => {
-  const [staffId, setStaffId] = useState<number>(12345);
-  const [pass, setPass] = useState<string>("");
   const router = useRouter();
+
+  const formik = useFormik({
+    initialValues: { staff_id: "", password: "" },
+    validationSchema: validationSchema,
+    onSubmit: async (values) => {
+      try {
+        // const user = await login(values);
+
+        // dispatch(setUser(JSON.stringify(user)));
+        console.log(values);
+        router.push("/");
+      } catch (err) {
+        console.error(err);
+        // toast({ msg: err.message });
+      }
+    },
+  });
 
   return (
     <Paper elevation={5} sx={{ p: 5 }}>
@@ -41,25 +66,25 @@ const Login = () => {
           fullWidth
           required
           placeholder={"Staff ID"}
-          value={staffId}
-          //  error={formik.touched.national_id && Boolean(formik.errors.national_id)}
-          //  helperText={formik.touched.national_id && formik.errors.national_id}
-          onChange={(e) => setStaffId(parseInt(e.target.value))}
+          value={formik.values.staff_id}
+          error={formik.touched.staff_id && Boolean(formik.errors.staff_id)}
+          helperText={formik.touched.staff_id && formik.errors.staff_id}
+          onChange={formik.handleChange}
           variant="outlined"
           sx={{ my: 1 }}
         />
         <TextField
           size={"small"}
           type={"password"}
-          name={"pass"}
+          name={"password"}
           label="Password"
           fullWidth
           required
           placeholder={"Password"}
-          value={pass}
-          //  error={formik.touched.national_id && Boolean(formik.errors.national_id)}
-          //  helperText={formik.touched.national_id && formik.errors.national_id}
-          onChange={(e) => setPass(e.target.value)}
+          value={formik.values.password}
+          error={formik.touched.password && Boolean(formik.errors.password)}
+          helperText={formik.touched.password && formik.errors.password}
+          onChange={formik.handleChange}
           variant="outlined"
           sx={{ my: 1 }}
         />
@@ -68,7 +93,7 @@ const Login = () => {
           size="small"
           color="primary"
           type={"submit"}
-          onClick={() => router.push("/")}
+          onClick={() => formik.submitForm()}
           endIcon={<LoginSharp />}
           variant="contained"
           sx={{ my: 1 }}
