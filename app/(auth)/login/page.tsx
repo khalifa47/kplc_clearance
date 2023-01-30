@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
-import React, { useState } from "react";
 
 import LoginSharp from "@mui/icons-material/LoginSharp";
 import Image from "next/image";
@@ -33,7 +32,7 @@ const Login = () => {
 
         // dispatch(setUser(JSON.stringify(user)));
         console.log(values);
-        router.push("/");
+        router.replace("/");
       } catch (err) {
         console.error(err);
         // toast({ msg: err.message });
@@ -93,7 +92,10 @@ const Login = () => {
           size="small"
           color="primary"
           type={"submit"}
-          onClick={() => formik.submitForm()}
+          onClick={(e) => {
+            e.preventDefault();
+            formik.submitForm();
+          }}
           endIcon={<LoginSharp />}
           variant="contained"
           sx={{ my: 1 }}

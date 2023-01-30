@@ -1,30 +1,19 @@
 "use client";
 
-import Box from "@mui/material/Box";
 import Collapse from "@mui/material/Collapse";
 import IconButton from "@mui/material/IconButton";
-import Table from "@mui/material/Table";
 import Chip from "@mui/material/Chip";
-import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
-import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Typography from "@mui/material/Typography";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useState } from "react";
 import { createDataAdmin } from "@/utils/createData";
 import DepartmentsTable from "./DepartmentsTable";
 
-const Row = ({
-  row,
-  userType,
-}: {
-  row: ReturnType<typeof createDataAdmin>;
-  userType: "admin" | "employee";
-}) => {
+const Row = ({ row }: { row: ReturnType<typeof createDataAdmin> }) => {
   const [open, setOpen] = useState(false);
-  const rowStatus = {
+  const rowStatus: any = {
     pending: <Chip label="Pending" color="error" />,
     progress: <Chip label="In Progress" color="warning" />,
     approved: <Chip label="Approved" color="success" />,
@@ -53,17 +42,7 @@ const Row = ({
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <Box sx={{ margin: 1 }}>
-              <Typography
-                variant="h6"
-                fontWeight={600}
-                gutterBottom
-                component="div"
-              >
-                Departments Status
-              </Typography>
-              <DepartmentsTable departments={row.departmentStatuses} small />
-            </Box>
+            <DepartmentsTable departments={row.departmentStatuses} small />
           </Collapse>
         </TableCell>
       </TableRow>

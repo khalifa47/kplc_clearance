@@ -2,10 +2,7 @@
 
 import Header from "@/components/Header";
 import Sidebar from "@/components/Sidebar";
-import { Roboto } from "@next/font/google";
 import { useState } from "react";
-
-const roboto = Roboto({ weight: "400", subsets: ["latin"] });
 
 export default function HomeLayout({
   children,
@@ -20,19 +17,21 @@ export default function HomeLayout({
     setMobileOpen(!mobileOpen);
   };
   return (
-    <html lang="en">
+    <html>
       <head />
-      <body className={roboto.className} style={{ display: "flex" }}>
-        <Header
-          drawerWidth={drawerWidth}
-          handleDrawerToggle={handleDrawerToggle}
-        />
-        <Sidebar
-          drawerWidth={drawerWidth}
-          mobileOpen={mobileOpen}
-          handleDrawerToggle={handleDrawerToggle}
-        />
-        {children}
+      <body>
+        <div style={{ display: "flex" }}>
+          <Header
+            drawerWidth={drawerWidth}
+            handleDrawerToggle={handleDrawerToggle}
+          />
+          <Sidebar
+            drawerWidth={drawerWidth}
+            mobileOpen={mobileOpen}
+            handleDrawerToggle={handleDrawerToggle}
+          />
+          {children}
+        </div>
       </body>
     </html>
   );

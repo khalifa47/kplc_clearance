@@ -22,7 +22,7 @@ const rowsAdmin = [
       date: "21 Dec 2022",
     },
     {
-      department: "ICT",
+      department: "Finance",
       status: "progress",
       certifier: "certifier",
       date: "21 Dec 2022",
@@ -36,7 +36,7 @@ const rowsAdmin = [
       date: "21 Dec 2022",
     },
     {
-      department: "ICT",
+      department: "Finance",
       status: "approved",
       certifier: "certifier",
       date: "21 Dec 2022",
@@ -50,7 +50,7 @@ const rowsAdmin = [
       date: "21 Dec 2022",
     },
     {
-      department: "ICT",
+      department: "Finance",
       status: "pending",
       certifier: "certifier",
       date: "21 Dec 2022",
@@ -64,7 +64,7 @@ const rowsAdmin = [
       date: "21 Dec 2022",
     },
     {
-      department: "ICT",
+      department: "Finance",
       status: "approved",
       certifier: "certifier",
       date: "21 Dec 2022",
@@ -78,7 +78,7 @@ const rowsAdmin = [
       date: "21 Dec 2022",
     },
     {
-      department: "ICT",
+      department: "Finance",
       status: "progress",
       certifier: "certifier",
       date: "21 Dec 2022",
@@ -142,7 +142,7 @@ export default function ClearanceTable({
           </TableHead>
           <TableBody>
             {rowsAdmin.map((row) => (
-              <Row key={row.user} row={row} userType="admin" />
+              <Row key={row.user} row={row} />
             ))}
           </TableBody>
         </Table>
