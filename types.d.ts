@@ -6,3 +6,12 @@ type DepartmentStatus = {
 };
 
 type Status = "progress" | "approved" | "pending";
+
+type User = {
+  id: number;
+  role: string;
+  first_name: string;
+  last_name: string;
+  status: string;
+  password: string;
+};
