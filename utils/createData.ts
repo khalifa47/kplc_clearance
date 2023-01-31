@@ -1,5 +1,3 @@
-import { DepartmentStatus, Status } from "./types";
-
 export const createDataAdmin = (
   user: string,
   status: Status,
