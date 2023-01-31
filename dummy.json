@@ -64,7 +64,7 @@
   "users": [
     {
       "id": 1,
-      "role": 1,
+      "role": 3,
       "first_name": "John",
       "last_name": "Doe",
       "status": 1,
@@ -80,7 +80,7 @@
     },
     {
       "id": 3,
-      "role": 3,
+      "role": 5,
       "first_name": "Jim",
       "last_name": "Smith",
       "status": 1,
@@ -122,23 +122,65 @@
     {
       "id": 1,
       "clearance": 1,
+      "status": 5,
+      "department": 1,
+      "cleared_by": 1
+    },
+    {
+      "id": 2,
+      "clearance": 1,
+      "status": 5,
+      "department": 2,
+      "cleared_by": 3
+    },
+    {
+      "id": 3,
+      "clearance": 1,
+      "status": 5,
+      "department": 3,
+      "cleared_by": 2
+    },
+    {
+      "id": 4,
+      "clearance": 2,
+      "status": 4,
+      "department": 1,
+      "cleared_by": null
+    },
+    {
+      "id": 5,
+      "clearance": 2,
+      "status": 5,
+      "department": 2,
+      "cleared_by": 3
+    },
+    {
+      "id": 6,
+      "clearance": 2,
+      "status": 5,
+      "department": 3,
+      "cleared_by": null
+    },
+    {
+      "id": 7,
+      "clearance": 3,
       "status": 3,
       "department": 1,
       "cleared_by": null
     },
     {
-      "id": 2,
-      "clearance": 1,
-      "status": 3,
+      "id": 8,
+      "clearance": 3,
+      "status": 4,
       "department": 2,
       "cleared_by": null
     },
     {
-      "id": 2,
-      "clearance": 1,
-      "status": 3,
-      "department": 2,
-      "cleared_by": null
+      "id": 8,
+      "clearance": 3,
+      "status": 5,
+      "department": 3,
+      "cleared_by": 2
     }
   ]
 }
