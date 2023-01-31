@@ -1,5 +1,6 @@
 "use client";
 
+import React from "react";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -11,12 +12,13 @@ import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as yup from "yup";
+import { login } from "@/utils/login";
 
 const validationSchema = yup.object({
   staff_id: yup.number().required("Staff ID is required"),
   password: yup
     .string()
-    .min(8, "Password should be of minimum 8 characters length")
+    // .min(8, "Password should be of minimum 8 characters length")
     .required("Password is required"),
 });
 
@@ -24,15 +26,15 @@ const Login = () => {
   const router = useRouter();
 
   const formik = useFormik({
-    initialValues: { staff_id: "", password: "" },
+    initialValues: { staff_id: 0, password: "" },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        // const user = await login(values);
+        const user = await login(values);
 
         // dispatch(setUser(JSON.stringify(user)));
-        console.log(values);
-        router.replace("/");
+        console.log(user);
+        // router.replace("/");
       } catch (err) {
         console.error(err);
         // toast({ msg: err.message });
