@@ -1,7 +1,7 @@
 "use client";
 
-import ClearanceTable from "@/components/ClearanceTable";
-import ClearanceForm from "@/components/ClearanceForm";
+import ClearanceTable from "@/app/components/ClearanceTable";
+import ClearanceForm from "@/app/components/ClearanceForm";
 import Toolbar from "@mui/material/Toolbar";
 
 const hasClearance = true;
