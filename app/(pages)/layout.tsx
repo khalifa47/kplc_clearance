@@ -4,11 +4,7 @@ import Header from "@/app/components/Header";
 import Sidebar from "@/app/components/Sidebar";
 import { useState } from "react";
 
-export default function HomeLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+const HomeLayout = ({ children }: { children: React.ReactNode }) => {
   const drawerWidth = 240;
 
   const [mobileOpen, setMobileOpen] = useState<boolean>(false);
@@ -35,4 +31,6 @@ export default function HomeLayout({
       </body>
     </html>
   );
-}
+};
+
+export default HomeLayout;
