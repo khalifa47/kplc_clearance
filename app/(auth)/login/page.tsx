@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import TextField from "@mui/material/TextField";
 import Box from "@mui/material/Box";
 import Paper from "@mui/material/Paper";
@@ -9,32 +8,28 @@ import Button from "@mui/material/Button";
 
 import LoginSharp from "@mui/icons-material/LoginSharp";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
 import { useFormik } from "formik";
 import * as yup from "yup";
-import { login } from "@/utils/login";
+import { signIn } from "next-auth/react";
 
 const validationSchema = yup.object({
-  staff_id: yup.number().required("Staff ID is required"),
-  password: yup
-    .string()
-    // .min(8, "Password should be of minimum 8 characters length")
-    .required("Password is required"),
+  staff_id: yup.string().required("Staff ID is required"),
+  password: yup.string().required("Password is required"),
 });
 
 const Login = () => {
-  const router = useRouter();
-
   const formik = useFormik({
-    initialValues: { staff_id: 0, password: "" },
+    initialValues: { staff_id: "", password: "" },
     validationSchema: validationSchema,
     onSubmit: async (values) => {
       try {
-        const user = await login(values);
+        await signIn("credentials", {
+          ...values,
+          redirect: true,
+          callbackUrl: "/",
+        });
 
         // dispatch(setUser(JSON.stringify(user)));
-        console.log(user);
-        // router.replace("/");
       } catch (err) {
         console.error(err);
         // toast({ msg: err.message });
@@ -52,7 +47,7 @@ const Login = () => {
           mb: 2,
         }}
       >
-        <Image src="/kplc.png" alt="logo" width={100} height={100} />
+        <Image src="/kplc.png" alt="logo" width={100} height={100} priority />
         <Typography variant="h6" fontWeight={600} mt={1}>
           THE KPLC CLEARANCE SYSTEM
         </Typography>
@@ -61,7 +56,7 @@ const Login = () => {
       <Box component="form">
         <TextField
           size={"small"}
-          type={"number"}
+          type={"string"}
           name={"staff_id"}
           label="Staff ID"
           fullWidth
