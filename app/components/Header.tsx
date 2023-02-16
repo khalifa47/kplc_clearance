@@ -18,6 +18,8 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import LogoutIcon from "@mui/icons-material/Logout";
 import { useState } from "react";
 import Image from "next/image";
+import { signOut, useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 const Header = ({
   drawerWidth,
@@ -26,6 +28,9 @@ const Header = ({
   drawerWidth: number;
   handleDrawerToggle: () => void;
 }) => {
+  const router = useRouter();
+  const { data: session } = useSession();
+
   const [anchorElUser, setAnchorElUser] = useState<null | HTMLElement>(null);
 
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
@@ -37,7 +42,8 @@ const Header = ({
   };
 
   const logOut = () => {
-    console.log("logged out");
+    signOut();
+    return router.replace("/login");
   };
 
   const settings = [
@@ -52,6 +58,8 @@ const Header = ({
       action: logOut,
     },
   ];
+
+  const user = session?.user;
 
   return (
     <AppBar
@@ -103,7 +111,7 @@ const Header = ({
             <Typography variant="h6">
               Hello,{" "}
               <Typography component={"span"} variant="h5" fontWeight={600}>
-                Khalifa
+                {user?.firstName}
               </Typography>
             </Typography>
           </Box>
@@ -121,7 +129,7 @@ const Header = ({
                 </IconButton>
               </Tooltip>
               <Typography ml={1} fontWeight={700}>
-                Khalifa Fumo
+                {`${user?.firstName} ${user?.lastName}`}
               </Typography>
             </Box>
 
