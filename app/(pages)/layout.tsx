@@ -1,53 +1,27 @@
-"use client";
+import Nav from "@/app/components/Nav";
+import Test from "@/app/components/Test";
+import { getServerSession } from "next-auth";
+import Providers from "@/app/components/Providers";
 
-import Header from "@/app/components/Header";
-import Sidebar from "@/app/components/Sidebar";
-import { useState } from "react";
-import { SessionProvider, signIn } from "next-auth/react";
-import type { Session } from "next-auth";
-
-const HomeLayout = ({
-  children,
-  session,
-}: {
-  children: React.ReactNode;
-  session: Session | null;
-}) => {
-  const drawerWidth = 240;
-
-  const [mobileOpen, setMobileOpen] = useState<boolean>(false);
-
-  const handleDrawerToggle = () => {
-    setMobileOpen(!mobileOpen);
-  };
-  if (session == null) {
-    signIn();
-  }
+const RootLayout = async ({ children }: { children: React.ReactNode }) => {
+  // if (session == null) {
+  //   signIn();
+  // }
+  const session = await getServerSession();
   return (
     <html>
       <head />
       <body>
-        <SessionProvider session={session}>
-          <div style={{ display: "flex" }}>
-            {session && (
-              <>
-                <Header
-                  drawerWidth={drawerWidth}
-                  handleDrawerToggle={handleDrawerToggle}
-                />
-                <Sidebar
-                  drawerWidth={drawerWidth}
-                  mobileOpen={mobileOpen}
-                  handleDrawerToggle={handleDrawerToggle}
-                />
-                {children}
-              </>
-            )}
-          </div>
-        </SessionProvider>
+        <div style={{ display: "flex" }}>
+          <Providers session={session}>
+            <Test />
+          </Providers>
+          {/* <Nav /> */}
+          {/* {children} */}
+        </div>
       </body>
     </html>
   );
 };
 
-export default HomeLayout;
+export default RootLayout;
