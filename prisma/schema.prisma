@@ -34,8 +34,9 @@ model Status {
 }
 
 model Department {
-  id   Int    @id @default(autoincrement())
-  name String
+  id                  Int                   @id @default(autoincrement())
+  name                String
+  DepartmentClearance DepartmentClearance[]
 
   @@map("departments")
 }
@@ -79,9 +80,10 @@ model DepartmentClearance {
   departmentId Int     @map("department_id")
   clearedBy    String? @map("cleared_by")
 
-  clearance Clearance @relation(fields: [clearanceId], references: [id], onDelete: Restrict)
-  user      User?     @relation(fields: [clearedBy], references: [id], onDelete: Restrict)
-  status    Status    @relation(fields: [statusId], references: [id], onDelete: Restrict)
+  clearance  Clearance  @relation(fields: [clearanceId], references: [id], onDelete: Restrict)
+  user       User?      @relation(fields: [clearedBy], references: [id], onDelete: Restrict)
+  status     Status     @relation(fields: [statusId], references: [id], onDelete: Restrict)
+  department Department @relation(fields: [departmentId], references: [id], onDelete: Restrict)
 
   @@map("department_clearances")
 }
