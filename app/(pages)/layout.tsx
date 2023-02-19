@@ -1,9 +1,10 @@
 import Nav from "@/app/components/Nav";
 import { getServerSession } from "next-auth";
 import Providers from "@/app/components/Providers";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
 const RootLayout = async ({ children }: { children: React.ReactNode }) => {
-  const session = await getServerSession();
+  const session = await getServerSession(authOptions);
 
   return (
     <html>

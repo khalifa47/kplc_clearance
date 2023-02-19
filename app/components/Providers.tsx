@@ -1,8 +1,7 @@
 "use client";
 
 import type { Session } from "next-auth";
-import { SessionProvider } from "next-auth/react";
-// import { useRouter } from "next/navigation";
+import { SessionProvider, signIn } from "next-auth/react";
 
 const Providers = ({
   session,
@@ -11,11 +10,10 @@ const Providers = ({
   session: Session | null;
   children: React.ReactNode;
 }) => {
-  // const router = useRouter();
-  // if (!session) {
-  //   router.replace("/login");
-  //   return <h1>Unauthenticated. Redirecting login page...</h1>;
-  // }
+  if (session === null) {
+    signIn();
+    return <h1>Unauthenticated. Redirecting login page...</h1>;
+  }
   return <SessionProvider session={session}>{children}</SessionProvider>;
 };
 
