@@ -7,6 +7,7 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import Toolbar from "@mui/material/Toolbar";
 import Paper from "@mui/material/Paper";
 import { createDataAdmin, createDataEmployee } from "@/utils/createData";
 import Row from "./Row";
@@ -109,46 +110,52 @@ const rowsEmployees = [
 
 export default function ClearanceTable({
   userType,
+  clearance,
 }: {
   userType: "admin" | "employee";
+  clearance: Clearance;
 }) {
+  console.log(clearance);
   return (
-    <TableContainer component={Paper} elevation={2}>
-      {userType === "admin" ? (
-        <Table>
-          <TableHead>
-            <TableRow sx={{ "& > *": { border: "unset" } }}>
-              <TableCell colSpan={3}>
-                <Typography variant="h5" fontWeight={600}>
-                  Clearances
-                </Typography>
-              </TableCell>
-              <TableCell>
-                <SearchBar />
-              </TableCell>
-            </TableRow>
-            <TableRow>
-              <TableCell />
-              <TableCell sx={{ fontWeight: 600 }} align="center">
-                User
-              </TableCell>
-              <TableCell sx={{ fontWeight: 600 }} align="center">
-                Date Initiated
-              </TableCell>
-              <TableCell sx={{ fontWeight: 600 }} align="center">
-                Status
-              </TableCell>
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {rowsAdmin.map((row) => (
-              <Row key={row.user} row={row} />
-            ))}
-          </TableBody>
-        </Table>
-      ) : (
-        <DepartmentsTable departments={rowsEmployees} />
-      )}
-    </TableContainer>
+    <>
+      <Toolbar />
+      <TableContainer component={Paper} elevation={2}>
+        {userType === "admin" ? (
+          <Table>
+            <TableHead>
+              <TableRow sx={{ "& > *": { border: "unset" } }}>
+                <TableCell colSpan={3}>
+                  <Typography variant="h5" fontWeight={600}>
+                    Clearances
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <SearchBar />
+                </TableCell>
+              </TableRow>
+              <TableRow>
+                <TableCell />
+                <TableCell sx={{ fontWeight: 600 }} align="center">
+                  User
+                </TableCell>
+                <TableCell sx={{ fontWeight: 600 }} align="center">
+                  Date Initiated
+                </TableCell>
+                <TableCell sx={{ fontWeight: 600 }} align="center">
+                  Status
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {rowsAdmin.map((row) => (
+                <Row key={row.user} row={row} />
+              ))}
+            </TableBody>
+          </Table>
+        ) : (
+          <DepartmentsTable departments={rowsEmployees} />
+        )}
+      </TableContainer>
+    </>
   );
 }
