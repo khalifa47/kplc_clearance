@@ -4,9 +4,6 @@ import ClearanceForm from "@/app/components/ClearanceForm";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
-// import { useSession } from "next-auth/react";
-// import { useEffect } from "react";
-
 const hasClearance = true;
 
 const getClearances = async (uid: string) => {
