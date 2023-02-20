@@ -22,7 +22,7 @@ export default async function Dashboard() {
   return (
     <main style={{ flexGrow: 1, padding: 10 }}>
       {hasClearance ? (
-        <ClearanceTable userType="employee" clearance={clearance} />
+        <ClearanceTable clearance={clearance} />
       ) : (
         <ClearanceForm />
       )}

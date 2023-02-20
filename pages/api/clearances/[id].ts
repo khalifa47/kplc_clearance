@@ -16,6 +16,13 @@ export default async function handler(
           name: true,
         },
       },
+      user: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
+        },
+      },
       DepartmentClearance: {
         include: {
           department: {
