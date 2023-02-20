@@ -47,7 +47,7 @@ export default async function handler(
   });
 
   if (clearances) {
-    res.status(200).json({ clearances });
+    res.status(200).json(clearances);
   } else {
     res.status(404).json("Clearances not found");
   }
