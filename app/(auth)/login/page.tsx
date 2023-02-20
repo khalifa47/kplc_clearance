@@ -49,7 +49,7 @@ const Login = () => {
       >
         <Image src="/kplc.png" alt="logo" width={100} height={100} priority />
         <Typography variant="h6" fontWeight={600} mt={1}>
-          THE KPLC CLEARANCE SYSTEM
+          KPLC STAFF CLEARANCE SYSTEM
         </Typography>
       </Box>
 
