@@ -9,6 +9,12 @@ type DepartmentStatus = {
   user: { firstName: string; lastName: string } | null;
 };
 
+type User = {
+  id: string;
+  firstName: string;
+  lastName: string;
+};
+
 type Status = "progress" | "approved" | "pending";
 
 type Clearance = {
@@ -18,5 +24,6 @@ type Clearance = {
   statusId: number;
   updatedAt: string;
   userId: string;
+  user: User;
   DepartmentClearance: DepartmentStatus[];
 };
