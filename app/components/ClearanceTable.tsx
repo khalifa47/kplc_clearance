@@ -14,99 +14,78 @@ import Row from "./Row";
 import SearchBar from "./SearchBar";
 import DepartmentsTable from "./DepartmentsTable";
 
-const rowsAdmin = [
-  createDataAdmin("John Doe", "pending", "20 Dec 2022", [
-    {
-      department: "ICT",
-      status: "pending",
-      certifier: "certifier",
-      date: "21 Dec 2022",
-    },
-    {
-      department: "Finance",
-      status: "progress",
-      certifier: "certifier",
-      date: "21 Dec 2022",
-    },
-  ]),
-  createDataAdmin("Jack Doe", "approved", "20 Dec 2022", [
-    {
-      department: "ICT",
-      status: "approved",
-      certifier: "certifier",
-      date: "21 Dec 2022",
-    },
-    {
-      department: "Finance",
-      status: "approved",
-      certifier: "certifier",
-      date: "21 Dec 2022",
-    },
-  ]),
-  createDataAdmin("Jill Doe", "pending", "20 Dec 2022", [
-    {
-      department: "ICT",
-      status: "pending",
-      certifier: "certifier",
-      date: "21 Dec 2022",
-    },
-    {
-      department: "Finance",
-      status: "pending",
-      certifier: "certifier",
-      date: "21 Dec 2022",
-    },
-  ]),
-  createDataAdmin("Johcrecn Doevthy", "progress", "20 Dec 2022", [
-    {
-      department: "ICT",
-      status: "progress",
-      certifier: "certifier",
-      date: "21 Dec 2022",
-    },
-    {
-      department: "Finance",
-      status: "approved",
-      certifier: "certifier",
-      date: "21 Dec 2022",
-    },
-  ]),
-  createDataAdmin("Jane Doe", "progress", "20 Dec 2022", [
-    {
-      department: "ICT",
-      status: "progress",
-      certifier: "certifier",
-      date: "21 Dec 2022",
-    },
-    {
-      department: "Finance",
-      status: "progress",
-      certifier: "certifier",
-      date: "21 Dec 2022",
-    },
-  ]),
-];
-
-const rowsEmployees = [
-  createDataEmployee({
-    department: "ICT",
-    status: "progress",
-    certifier: "Jon Doe",
-    date: "22 Dec 2022",
-  }),
-  createDataEmployee({
-    department: "Finance",
-    status: "pending",
-    certifier: "Jack Doe",
-    date: "21 Dec 2022",
-  }),
-  createDataEmployee({
-    department: "HR",
-    status: "approved",
-    certifier: "Jill Doe",
-    date: "23 Dec 2022",
-  }),
-];
+// const rowsAdmin = [
+//   createDataAdmin("John Doe", "pending", "20 Dec 2022", [
+//     {
+//       department: "ICT",
+//       status: "pending",
+//       certifier: "certifier",
+//       date: "21 Dec 2022",
+//     },
+//     {
+//       department: "Finance",
+//       status: "progress",
+//       certifier: "certifier",
+//       date: "21 Dec 2022",
+//     },
+//   ]),
+//   createDataAdmin("Jack Doe", "approved", "20 Dec 2022", [
+//     {
+//       department: "ICT",
+//       status: "approved",
+//       certifier: "certifier",
+//       date: "21 Dec 2022",
+//     },
+//     {
+//       department: "Finance",
+//       status: "approved",
+//       certifier: "certifier",
+//       date: "21 Dec 2022",
+//     },
+//   ]),
+//   createDataAdmin("Jill Doe", "pending", "20 Dec 2022", [
+//     {
+//       department: "ICT",
+//       status: "pending",
+//       certifier: "certifier",
+//       date: "21 Dec 2022",
+//     },
+//     {
+//       department: "Finance",
+//       status: "pending",
+//       certifier: "certifier",
+//       date: "21 Dec 2022",
+//     },
+//   ]),
+//   createDataAdmin("Johcrecn Doevthy", "progress", "20 Dec 2022", [
+//     {
+//       department: "ICT",
+//       status: "progress",
+//       certifier: "certifier",
+//       date: "21 Dec 2022",
+//     },
+//     {
+//       department: "Finance",
+//       status: "approved",
+//       certifier: "certifier",
+//       date: "21 Dec 2022",
+//     },
+//   ]),
+//   createDataAdmin("Jane Doe", "progress", "20 Dec 2022", [
+//     {
+//       department: "ICT",
+//       status: "progress",
+//       certifier: "certifier",
+//       date: "21 Dec 2022",
+//     },
+//     {
+//       department: "Finance",
+//       status: "progress",
+//       certifier: "certifier",
+//       date: "21 Dec 2022",
+//     },
+//   ]),
+// ];
 
 export default function ClearanceTable({
   userType,
@@ -147,13 +126,13 @@ export default function ClearanceTable({
               </TableRow>
             </TableHead>
             <TableBody>
-              {rowsAdmin.map((row) => (
+              {/* {rowsAdmin.map((row) => (
                 <Row key={row.user} row={row} />
-              ))}
+              ))} */}
             </TableBody>
           </Table>
         ) : (
-          <DepartmentsTable departments={rowsEmployees} />
+          <DepartmentsTable departments={clearance.DepartmentClearance} />
         )}
       </TableContainer>
     </>

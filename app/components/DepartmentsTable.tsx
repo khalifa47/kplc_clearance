@@ -44,14 +44,18 @@ const DepartmentsTable = ({
         </TableHead>
         <TableBody>
           {departments.map((department) => (
-            <TableRow key={department.department}>
+            <TableRow key={department.departmentId}>
               <TableCell component="th" scope="row" align="center">
-                {department.department}
+                {department.department.name}
               </TableCell>
-              <TableCell align="center">{department.certifier}</TableCell>
-              <TableCell align="center">{department.date}</TableCell>
               <TableCell align="center">
-                {rowStatus[department.status]}
+                {department.user
+                  ? `${department.user?.firstName} ${department.user?.lastName}`
+                  : "Unapproved"}
+              </TableCell>
+              <TableCell align="center">{"22 Dec 2022"}</TableCell>
+              <TableCell align="center">
+                {rowStatus[department.status.name]}
               </TableCell>
             </TableRow>
           ))}
