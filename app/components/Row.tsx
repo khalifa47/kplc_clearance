@@ -8,10 +8,9 @@ import TableRow from "@mui/material/TableRow";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useState } from "react";
-import { createDataAdmin } from "@/utils/createData";
 import DepartmentsTable from "./DepartmentsTable";
 
-const Row = ({ row }: { row: ReturnType<typeof createDataAdmin> }) => {
+const Row = ({ row }: { row: Clearance }) => {
   const [open, setOpen] = useState(false);
   const rowStatus: any = {
     pending: <Chip label="Pending" color="error" />,
@@ -32,17 +31,17 @@ const Row = ({ row }: { row: ReturnType<typeof createDataAdmin> }) => {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row" align="center">
-          {row.user}
+          {`${row.user.firstName} ${row.user.lastName}`}
         </TableCell>
-        <TableCell align="center">{row.date}</TableCell>
-        <TableCell align="center">{rowStatus[row.status]}</TableCell>
+        <TableCell align="center">{row.createdAt}</TableCell>
+        <TableCell align="center">{rowStatus[row.status.name]}</TableCell>
       </TableRow>
 
       {/* Sub Table */}
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <DepartmentsTable departments={row.departmentStatuses} small />
+            <DepartmentsTable departments={row.DepartmentClearance} small />
           </Collapse>
         </TableCell>
       </TableRow>

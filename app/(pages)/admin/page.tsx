@@ -1,13 +1,18 @@
-"use client";
+import AdminTable from "@/app/components/AdminTable";
 
-import ClearanceTable from "@/app/components/ClearanceTable";
-import Toolbar from "@mui/material/Toolbar";
+const getClearances = async () => {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/clearances`);
+  const clearances: Clearance[] = await res
+    .json()
+    .catch((err) => console.log(err));
+  return clearances;
+};
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const clearances = await getClearances();
   return (
     <main style={{ flexGrow: 1, padding: 10 }}>
-      <Toolbar />
-      <ClearanceTable userType="admin" />
+      <AdminTable clearances={clearances} />
     </main>
   );
 }
