@@ -6,49 +6,81 @@ export default async function handler(
   res: NextApiResponse<any>
 ) {
   const { id } = req.query;
-  const clearance = await prisma.clearance.findFirstOrThrow({
-    where: {
-      userId: id?.toString(),
-    },
-    include: {
-      status: {
-        select: {
-          name: true,
-        },
+  if (req.method === "POST") {
+    const clearance = await prisma.clearance.create({
+      data: {
+        userId: id!.toString(),
+        statusId: 3,
       },
-      user: {
-        select: {
-          id: true,
-          firstName: true,
-          lastName: true,
+    });
+    await prisma.departmentClearance.createMany({
+      data: [
+        {
+          clearanceId: clearance.id,
+          statusId: 3,
+          departmentId: 1,
+          clearedBy: null,
         },
-      },
-      DepartmentClearance: {
-        include: {
-          department: {
-            select: {
-              name: true,
-            },
-          },
-          status: {
-            select: {
-              name: true,
-            },
-          },
-          user: {
-            select: {
-              firstName: true,
-              lastName: true,
-            },
-          },
+        {
+          clearanceId: clearance.id,
+          statusId: 3,
+          departmentId: 2,
+          clearedBy: null,
         },
-      },
-    },
-  });
-
-  if (clearance) {
-    res.status(200).json({ id: id, clearance });
+        {
+          clearanceId: clearance.id,
+          statusId: 3,
+          departmentId: 3,
+          clearedBy: null,
+        },
+      ],
+      skipDuplicates: true,
+    });
   } else {
-    res.status(404).json("User not found");
+    const clearance = await prisma.clearance.findFirstOrThrow({
+      where: {
+        userId: id?.toString(),
+      },
+      include: {
+        status: {
+          select: {
+            name: true,
+          },
+        },
+        user: {
+          select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+          },
+        },
+        DepartmentClearance: {
+          include: {
+            department: {
+              select: {
+                name: true,
+              },
+            },
+            status: {
+              select: {
+                name: true,
+              },
+            },
+            user: {
+              select: {
+                firstName: true,
+                lastName: true,
+              },
+            },
+          },
+        },
+      },
+    });
+
+    if (clearance) {
+      res.status(200).json({ id: id, clearance });
+    } else {
+      res.status(404).json("User not found");
+    }
   }
 }

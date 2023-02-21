@@ -19,7 +19,11 @@ export default async function Dashboard() {
 
   return (
     <main style={{ flexGrow: 1, padding: 10 }}>
-      {clearance ? <ClearanceTable clearance={clearance} /> : <ClearanceForm />}
+      {clearance ? (
+        <ClearanceTable clearance={clearance} />
+      ) : (
+        <ClearanceForm uid={session?.user.id!} />
+      )}
     </main>
   );
 }
