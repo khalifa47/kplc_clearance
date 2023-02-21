@@ -37,6 +37,7 @@ model Department {
   id                  Int                   @id @default(autoincrement())
   name                String
   DepartmentClearance DepartmentClearance[]
+  Item                Item[]
 
   @@map("departments")
 }
@@ -48,13 +49,14 @@ model User {
   password            String
   roleId              Int                   @map("role_id")
   statusId            Int                   @map("status_id")
-  role                Role                  @relation(fields: [roleId], references: [id], onDelete: Restrict)
-  status              Status                @relation(fields: [statusId], references: [id], onDelete: Restrict)
+  role                Role                  @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  status              Status                @relation(fields: [statusId], references: [id], onDelete: Cascade)
   // email         String?   @unique
   // emailVerified DateTime?
   // image         String?
   Clearance           Clearance[]
   DepartmentClearance DepartmentClearance[]
+  AssignedItems       AssignedItems[]
 
   @@map("users")
 }
@@ -66,8 +68,8 @@ model Clearance {
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now())
 
-  user                User                  @relation(fields: [userId], references: [id], onDelete: Restrict)
-  status              Status                @relation(fields: [statusId], references: [id], onDelete: Restrict)
+  user                User                  @relation(fields: [userId], references: [id], onDelete: Cascade)
+  status              Status                @relation(fields: [statusId], references: [id], onDelete: Cascade)
   DepartmentClearance DepartmentClearance[]
 
   @@map("clearances")
@@ -80,10 +82,34 @@ model DepartmentClearance {
   departmentId Int     @map("department_id")
   clearedBy    String? @map("cleared_by")
 
-  clearance  Clearance  @relation(fields: [clearanceId], references: [id], onDelete: Restrict)
-  user       User?      @relation(fields: [clearedBy], references: [id], onDelete: Restrict)
-  status     Status     @relation(fields: [statusId], references: [id], onDelete: Restrict)
-  department Department @relation(fields: [departmentId], references: [id], onDelete: Restrict)
+  clearance  Clearance  @relation(fields: [clearanceId], references: [id], onDelete: Cascade)
+  user       User?      @relation(fields: [clearedBy], references: [id], onDelete: Cascade)
+  status     Status     @relation(fields: [statusId], references: [id], onDelete: Cascade)
+  department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
 
   @@map("department_clearances")
+}
+
+model Item {
+  id            String          @id
+  name          String
+  departmentId  Int             @map("department_id")
+  AssignedItems AssignedItems[]
+
+  department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+
+  @@map("items")
+}
+
+model AssignedItems {
+  id         Int       @id @default(autoincrement())
+  itemId     String    @map("item_id")
+  userId     String    @map("user_id")
+  assignedOn DateTime
+  returnedOn DateTime?
+
+  item Item @relation(fields: [itemId], references: [id], onDelete: Cascade)
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@map("assigned_items")
 }
