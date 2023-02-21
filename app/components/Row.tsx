@@ -31,6 +31,9 @@ const Row = ({ row }: { row: Clearance }) => {
           </IconButton>
         </TableCell>
         <TableCell component="th" scope="row" align="center">
+          {row.userId}
+        </TableCell>
+        <TableCell component="th" scope="row" align="center">
           {`${row.user.firstName} ${row.user.lastName}`}
         </TableCell>
         <TableCell align="center">{row.createdAt}</TableCell>

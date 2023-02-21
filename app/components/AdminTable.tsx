@@ -20,7 +20,7 @@ const AdminTable = ({ clearances }: { clearances: Clearance[] }) => {
         <Table>
           <TableHead>
             <TableRow sx={{ "& > *": { border: "unset" } }}>
-              <TableCell colSpan={3}>
+              <TableCell colSpan={4}>
                 <Typography variant="h5" fontWeight={600}>
                   Clearances
                 </Typography>
@@ -31,6 +31,9 @@ const AdminTable = ({ clearances }: { clearances: Clearance[] }) => {
             </TableRow>
             <TableRow>
               <TableCell />
+              <TableCell sx={{ fontWeight: 600 }} align="center">
+                Staff ID
+              </TableCell>
               <TableCell sx={{ fontWeight: 600 }} align="center">
                 User
               </TableCell>
