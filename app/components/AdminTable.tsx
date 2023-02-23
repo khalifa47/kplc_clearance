@@ -9,14 +9,40 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import Pagination from "@mui/material/Pagination";
 import Row from "./Row";
 import SearchBar from "./SearchBar";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 
-const AdminTable = ({ clearances }: { clearances: Clearance[] }) => {
+const AdminTable = ({
+  clearances,
+  startPage,
+  count,
+}: {
+  clearances: Clearance[];
+  startPage: number;
+  count: number;
+}) => {
+  const router = useRouter();
+  const [page, setPage] = useState(startPage);
+
+  const handlePaginationChange = (
+    e: React.ChangeEvent<unknown>,
+    value: number
+  ) => {
+    setPage(value);
+    router.push(`/admin?page=${value}`);
+  };
+
   return (
     <>
       <Toolbar />
-      <TableContainer component={Paper} elevation={2}>
+      <TableContainer
+        component={Paper}
+        elevation={2}
+        sx={{ display: "flex", flexDirection: "column" }}
+      >
         <Table>
           <TableHead>
             <TableRow sx={{ "& > *": { border: "unset" } }}>
@@ -51,6 +77,14 @@ const AdminTable = ({ clearances }: { clearances: Clearance[] }) => {
             ))}
           </TableBody>
         </Table>
+        <Pagination
+          count={Math.ceil(count / 3.0)}
+          color="primary"
+          size="large"
+          page={page}
+          sx={{ p: 2, m: "0 auto" }}
+          onChange={handlePaginationChange}
+        />
       </TableContainer>
     </>
   );
