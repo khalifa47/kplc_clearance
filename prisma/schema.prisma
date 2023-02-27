@@ -37,7 +37,7 @@ model Department {
   id                  Int                   @id @default(autoincrement())
   name                String
   DepartmentClearance DepartmentClearance[]
-  Item                Item[]
+  ItemCategory        ItemCategories[]
 
   @@map("departments")
 }
@@ -90,13 +90,24 @@ model DepartmentClearance {
   @@map("department_clearances")
 }
 
-model Item {
-  id            String          @id
-  name          String
-  departmentId  Int             @map("department_id")
-  AssignedItems AssignedItems[]
+model ItemCategories {
+  id           Int    @id @default(autoincrement())
+  name         String
+  departmentId Int    @map("department_id")
+  Item         Item[]
 
   department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+
+  @@map("item_categories")
+}
+
+model Item {
+  id             String          @id
+  name           String
+  itemCategoryId Int             @map("item_category_id")
+  AssignedItems  AssignedItems[]
+
+  itemCategory ItemCategories @relation(fields: [itemCategoryId], references: [id], onDelete: Cascade)
 
   @@map("items")
 }
