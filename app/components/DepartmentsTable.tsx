@@ -6,6 +6,9 @@ import TableRow from "@mui/material/TableRow";
 import Chip from "@mui/material/Chip";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import ItemsDialog from "./ItemsDialog";
+import { useState } from "react";
+import { ButtonBase } from "@mui/material";
 
 const DepartmentsTable = ({
   departments,
@@ -20,8 +23,14 @@ const DepartmentsTable = ({
     approved: <Chip label="Approved" color="success" />,
   };
 
+  const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+
   return (
     <Box sx={{ m: 1 }}>
+      <ItemsDialog
+        dialogOpen={dialogOpen}
+        handleDialogClose={() => setDialogOpen(false)}
+      />
       <Typography variant="h6" fontWeight={600} gutterBottom component="div">
         Departments Status
       </Typography>
@@ -44,7 +53,12 @@ const DepartmentsTable = ({
         </TableHead>
         <TableBody>
           {departments.map((department) => (
-            <TableRow key={department.departmentId}>
+            <TableRow
+              hover
+              key={department.departmentId}
+              onClick={() => setDialogOpen(true)}
+              sx={{ cursor: "pointer" }}
+            >
               <TableCell component="th" scope="row" align="center">
                 {department.department.name}
               </TableCell>
