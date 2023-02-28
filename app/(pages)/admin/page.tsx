@@ -17,11 +17,17 @@ export default async function Dashboard({
   const clearances = await getClearances(searchParams.page);
   return (
     <main style={{ flexGrow: 1, padding: 10 }}>
-      <AdminTable
-        clearances={clearances.clearances}
-        startPage={parseInt(searchParams.page) | 1}
-        count={clearances.clearanceCount}
-      />
+      {clearances.clearanceCount === 0 ? (
+        <h1 style={{ textAlign: "center", marginTop: 60 }}>
+          No clearances found
+        </h1>
+      ) : (
+        <AdminTable
+          clearances={clearances.clearances}
+          startPage={parseInt(searchParams.page) | 1}
+          count={clearances.clearanceCount}
+        />
+      )}
     </main>
   );
 }
