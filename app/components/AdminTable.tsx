@@ -14,6 +14,7 @@ import Row from "./Row";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import { searchClearancesByUser } from "@/utils/helpers";
 
 const AdminTable = ({
   clearances,
@@ -26,9 +27,26 @@ const AdminTable = ({
   count: number;
   items: Item[];
 }) => {
+  // pagination states
   const router = useRouter();
   const [page, setPage] = useState(startPage);
 
+  // search states
+  const [shownClearances, setShownClearances] = useState(clearances);
+  const [search, setSearch] = useState("");
+
+  // search functions
+  const handleChangeSearch = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setSearch(e.target.value);
+  };
+
+  const handleSearch = (e: React.MouseEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const searchedClearances = searchClearancesByUser(clearances, search);
+    setShownClearances(searchedClearances);
+  };
+
+  // pagination function
   const handlePaginationChange = (
     e: React.ChangeEvent<unknown>,
     value: number
@@ -54,7 +72,11 @@ const AdminTable = ({
                 </Typography>
               </TableCell>
               <TableCell>
-                <SearchBar />
+                <SearchBar
+                  search={search}
+                  handleChangeSearch={handleChangeSearch}
+                  handleSearch={handleSearch}
+                />
               </TableCell>
             </TableRow>
             <TableRow>
@@ -74,7 +96,7 @@ const AdminTable = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {clearances.map((clearance) => (
+            {shownClearances.map((clearance) => (
               <Row
                 key={clearance.id}
                 row={clearance}

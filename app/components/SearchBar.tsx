@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import IconButton from "@mui/material/IconButton";
 
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
 
 const Search = styled("div")(({ theme }) => ({
   position: "relative",
@@ -48,14 +47,15 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
-const SearchBar = () => {
-  const [search, setSearch] = useState("");
-
-  const handleSearch = async (e: React.MouseEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log("submit");
-  };
-
+const SearchBar = ({
+  search,
+  handleChangeSearch,
+  handleSearch,
+}: {
+  search: string;
+  handleChangeSearch: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleSearch: (e: React.MouseEvent<HTMLFormElement>) => void;
+}) => {
   return (
     <Search>
       <SearchIconWrapper>
@@ -69,7 +69,7 @@ const SearchBar = () => {
         <StyledInputBase
           placeholder="Search…"
           inputProps={{ "aria-label": "search" }}
-          onChange={(e) => setSearch(e.target.value)}
+          onChange={handleChangeSearch}
         />
         <IconButton type="submit" disabled={search === ""}>
           <SearchIcon />

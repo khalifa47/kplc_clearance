@@ -7,3 +7,18 @@ export const capitalize = (sentence: string) => {
   });
   return capitalizedWords.join(" ");
 };
+
+export const searchClearancesByUser = (
+  clearances: Clearance[],
+  keyword: string
+) => {
+  if (keyword === "") return clearances;
+  return clearances.filter((clearance) => {
+    const searchFields = `${clearance.user.id} ${clearance.user.firstName} ${clearance.user.lastName}`;
+
+    const searchFieldsLowerCase = searchFields.toLowerCase();
+    const keywordLowerCase = keyword.toLowerCase();
+
+    return searchFieldsLowerCase.indexOf(keywordLowerCase) !== -1;
+  });
+};
