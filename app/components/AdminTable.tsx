@@ -19,10 +19,12 @@ const AdminTable = ({
   clearances,
   startPage,
   count,
+  items,
 }: {
   clearances: Clearance[];
   startPage: number;
   count: number;
+  items: Item[];
 }) => {
   const router = useRouter();
   const [page, setPage] = useState(startPage);
@@ -73,7 +75,13 @@ const AdminTable = ({
           </TableHead>
           <TableBody>
             {clearances.map((clearance) => (
-              <Row key={clearance.id} row={clearance} />
+              <Row
+                key={clearance.id}
+                row={clearance}
+                items={items.filter(
+                  (item) => item.user?.id === clearance.user.id
+                )}
+              />
             ))}
           </TableBody>
         </Table>

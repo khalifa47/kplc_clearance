@@ -5,11 +5,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  const { id } = req.query;
   const items = await prisma.assignedItems.findMany({
-    where: {
-      userId: id?.toString(),
-    },
     include: {
       item: {
         select: {
@@ -23,6 +19,13 @@ export default async function handler(
               },
             },
           },
+        },
+      },
+      user: {
+        select: {
+          id: true,
+          firstName: true,
+          lastName: true,
         },
       },
     },

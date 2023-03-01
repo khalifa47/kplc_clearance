@@ -41,6 +41,7 @@ type Item = {
       };
     };
   };
+  user?: User;
   itemId: number;
   returnedOn: string;
   userId: string;

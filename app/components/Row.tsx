@@ -10,7 +10,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useState } from "react";
 import DepartmentsTable from "./DepartmentsTable";
 
-const Row = ({ row }: { row: Clearance }) => {
+const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
   const [open, setOpen] = useState(false);
   const rowStatus: any = {
     pending: <Chip label="Pending" color="error" />,
@@ -44,7 +44,11 @@ const Row = ({ row }: { row: Clearance }) => {
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
-            <DepartmentsTable departments={row.DepartmentClearance} small />
+            <DepartmentsTable
+              departments={row.DepartmentClearance}
+              items={items}
+              small
+            />
           </Collapse>
         </TableCell>
       </TableRow>

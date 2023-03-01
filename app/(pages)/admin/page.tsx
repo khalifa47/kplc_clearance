@@ -9,12 +9,20 @@ const getClearances = async (page: string = "1") => {
   return clearances;
 };
 
+const getItems = async () => {
+  const res = await fetch(`${process.env.NEXTAUTH_URL}/api/items`);
+  const items: Item[] = await res.json().catch((err) => console.log(err));
+  return items;
+};
+
 export default async function Dashboard({
   searchParams,
 }: {
   searchParams: { page: string };
 }) {
   const clearances = await getClearances(searchParams.page);
+  const items = await getItems();
+
   return (
     <main style={{ flexGrow: 1, padding: 10 }}>
       {clearances.clearanceCount === 0 ? (
@@ -26,24 +34,9 @@ export default async function Dashboard({
           clearances={clearances.clearances}
           startPage={parseInt(searchParams.page) | 1}
           count={clearances.clearanceCount}
+          items={items}
         />
       )}
     </main>
   );
 }
-
-/**
- * HR
- * 1. office keys
- * 2. keycard
- *
- * Finance
- * 1. loans paid
- *
- * ICT
- * 1. Monitor
- * 2. IP phone
- * 3. Diconnected from network
- *
- *
- */
