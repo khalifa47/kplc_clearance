@@ -8,12 +8,13 @@ import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import ItemsDialog from "./ItemsDialog";
 import { useState } from "react";
-import { ButtonBase } from "@mui/material";
 
 const DepartmentsTable = ({
+  items,
   departments,
   small = false,
 }: {
+  items: Item[];
   departments: Array<DepartmentStatus>;
   small?: boolean;
 }) => {
@@ -24,10 +25,17 @@ const DepartmentsTable = ({
   };
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
+  const [selectedDept, setSelectedDept] = useState<string>("");
 
   return (
     <Box sx={{ m: 1 }}>
       <ItemsDialog
+        dept={selectedDept}
+        items={items.filter(
+          (item) =>
+            item.item.itemCategory.department.name.toUpperCase() ===
+            selectedDept
+        )}
         dialogOpen={dialogOpen}
         handleDialogClose={() => setDialogOpen(false)}
       />
@@ -56,11 +64,14 @@ const DepartmentsTable = ({
             <TableRow
               hover
               key={department.departmentId}
-              onClick={() => setDialogOpen(true)}
+              onClick={() => {
+                setSelectedDept(department.department.name.toUpperCase());
+                setDialogOpen(true);
+              }}
               sx={{ cursor: "pointer" }}
             >
               <TableCell component="th" scope="row" align="center">
-                {department.department.name}
+                {department.department.name.toUpperCase()}
               </TableCell>
               <TableCell align="center">
                 {department.user
