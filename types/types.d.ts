@@ -27,3 +27,21 @@ type Clearance = {
   user: User;
   DepartmentClearance: DepartmentStatus[];
 };
+
+type Item = {
+  assignedOn: string;
+  id: number;
+  item: {
+    id: string;
+    name: string;
+    itemCategory: {
+      name: string;
+      department: {
+        name: string;
+      };
+    };
+  };
+  itemId: number;
+  returnedOn: string;
+  userId: string;
+};
