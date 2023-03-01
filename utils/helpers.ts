@@ -8,6 +8,7 @@ export const capitalize = (sentence: string) => {
   return capitalizedWords.join(" ");
 };
 
+// searches for users by user ID, first name or last name
 export const searchClearancesByUser = (
   clearances: Clearance[],
   keyword: string
