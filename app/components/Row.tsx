@@ -7,15 +7,39 @@ import TableCell from "@mui/material/TableCell";
 import TableRow from "@mui/material/TableRow";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import CheckIcon from "@mui/icons-material/Check";
+
 import { useState } from "react";
 import DepartmentsTable from "./DepartmentsTable";
+import { useRouter } from "next/navigation";
 
 const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
+  const router = useRouter();
+
   const [open, setOpen] = useState(false);
   const rowStatus: any = {
     pending: <Chip label="Pending" color="error" />,
     progress: <Chip label="In Progress" color="warning" />,
     approved: <Chip label="Approved" color="success" />,
+  };
+
+  const handleClearanceApproval = async () => {
+    fetch(`/api/clearances/${row.user.id}`, {
+      method: "PATCH",
+      headers: {
+        "content-type": "application/json",
+        dept: "false",
+      },
+      body: JSON.stringify({ clearanceId: row.id }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Success:", data);
+      })
+      .catch((error) => {
+        console.error("Error:", error);
+      });
+    router.refresh();
   };
 
   return (
@@ -38,6 +62,16 @@ const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
         </TableCell>
         <TableCell align="center">{row.createdAt}</TableCell>
         <TableCell align="center">{rowStatus[row.status.name]}</TableCell>
+        <TableCell
+          align="right"
+          sx={{ borderTop: "1px solid rgba(224, 224, 224, 1)" }}
+        >
+          {row.status.name === "progress" && (
+            <IconButton color="primary" onClick={handleClearanceApproval}>
+              <CheckIcon />
+            </IconButton>
+          )}
+        </TableCell>
       </TableRow>
 
       {/* Sub Table */}

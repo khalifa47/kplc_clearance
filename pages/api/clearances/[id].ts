@@ -6,6 +6,8 @@ export default async function handler(
   res: NextApiResponse<any>
 ) {
   const { id } = req.query;
+
+  // creating a clearance
   if (req.method === "POST") {
     const itemsRes = await fetch(`${process.env.NEXTAUTH_URL}/api/items/${id}`);
     const items: Item[] = await itemsRes
@@ -62,7 +64,61 @@ export default async function handler(
       ],
       skipDuplicates: true,
     });
+
+    // updating a clearance
+  } else if (req.method === "PATCH") {
+    if (req.headers.dept) {
+      // department clearance update
+      const departmentClearance = await prisma.departmentClearance.update({
+        where: {
+          id: req.body.departmentClearanceId,
+        },
+        data: {
+          statusId: 5,
+          clearedBy: req.body.clearanceAdminId,
+        },
+      });
+
+      const clearancesDept = await prisma.departmentClearance.findMany({
+        where: {
+          AND: [
+            { clearanceId: departmentClearance.clearanceId },
+            { NOT: { statusId: 5 } },
+          ],
+        },
+      });
+
+      if (clearancesDept.length === 0) {
+        await prisma.clearance.update({
+          where: {
+            id: departmentClearance.clearanceId,
+          },
+          data: {
+            statusId: 4,
+          },
+        });
+      }
+    } else {
+      // overall clearance update
+      await prisma.clearance.update({
+        where: {
+          id: req.body.clearanceId,
+        },
+        data: {
+          statusId: 5,
+        },
+      });
+      await prisma.user.update({
+        where: {
+          id: id?.toString(),
+        },
+        data: {
+          statusId: 2,
+        },
+      });
+    }
   } else {
+    // get clearance
     const clearance = await prisma.clearance.findFirstOrThrow({
       where: {
         userId: id?.toString(),
