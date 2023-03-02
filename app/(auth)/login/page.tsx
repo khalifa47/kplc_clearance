@@ -28,11 +28,8 @@ const Login = () => {
           redirect: true,
           callbackUrl: "/",
         });
-
-        // dispatch(setUser(JSON.stringify(user)));
       } catch (err) {
         console.error(err);
-        // toast({ msg: err.message });
       }
     },
   });
