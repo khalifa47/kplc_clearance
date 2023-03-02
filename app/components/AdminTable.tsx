@@ -96,15 +96,25 @@ const AdminTable = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {shownClearances.map((clearance) => (
-              <Row
-                key={clearance.id}
-                row={clearance}
-                items={items.filter(
-                  (item) => item.user?.id === clearance.user.id
-                )}
-              />
-            ))}
+            {search !== ""
+              ? shownClearances.map((clearance) => (
+                  <Row
+                    key={clearance.id}
+                    row={clearance}
+                    items={items.filter(
+                      (item) => item.user?.id === clearance.user.id
+                    )}
+                  />
+                ))
+              : clearances.map((clearance) => (
+                  <Row
+                    key={clearance.id}
+                    row={clearance}
+                    items={items.filter(
+                      (item) => item.user?.id === clearance.user.id
+                    )}
+                  />
+                ))}
           </TableBody>
         </Table>
         <Pagination

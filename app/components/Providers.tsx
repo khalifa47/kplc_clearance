@@ -16,9 +16,25 @@ const Providers = ({
   }
   if (session.user.statusId === 2) {
     return (
-      <h1>
-        {`Inactive User: ${session.user.firstName} ${session.user.lastName} with ID ${session.user.id} has been cleared`}
-      </h1>
+      <div style={{ width: "100vw", textAlign: "center" }}>
+        <h1>
+          {`Inactive User: ${session.user.firstName} ${session.user.lastName} with ID ${session.user.id} has been cleared`}
+        </h1>
+        <button
+          onClick={() => signIn()}
+          style={{
+            padding: 20,
+            fontSize: 16,
+            border: "none",
+            borderRadius: 20,
+            backgroundColor: "#00337f",
+            color: "#fff",
+            cursor: "pointer",
+          }}
+        >
+          Log In As Different User
+        </button>
+      </div>
     );
   }
   return <SessionProvider session={session}>{children}</SessionProvider>;
