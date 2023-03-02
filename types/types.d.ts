@@ -1,6 +1,7 @@
 type DepartmentStatus = {
   clearanceId: number;
   clearedBy: string | null;
+  updatedAt: string;
   department: { name: string };
   departmentId: number;
   id: number;

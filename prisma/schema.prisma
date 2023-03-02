@@ -81,6 +81,7 @@ model DepartmentClearance {
   statusId     Int     @map("status_id")
   departmentId Int     @map("department_id")
   clearedBy    String? @map("cleared_by")
+  updatedAt DateTime   @updatedAt @default(now())
 
   clearance  Clearance  @relation(fields: [clearanceId], references: [id], onDelete: Cascade)
   user       User?      @relation(fields: [clearedBy], references: [id], onDelete: Cascade)
