@@ -12,6 +12,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import DepartmentsTable from "./DepartmentsTable";
 import { useRouter } from "next/navigation";
+import { dateFormat } from "@/utils/helpers";
 
 const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
   const router = useRouter();
@@ -24,11 +25,10 @@ const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
   };
 
   const handleClearanceApproval = async () => {
-    fetch(`/api/clearances/${row.user.id}`, {
+    fetch(`/api/clearances/${row.userId}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
-        dept: "false",
       },
       body: JSON.stringify({ clearanceId: row.id }),
     })
@@ -60,7 +60,7 @@ const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
         <TableCell component="th" scope="row" align="center">
           {`${row.user.firstName} ${row.user.lastName}`}
         </TableCell>
-        <TableCell align="center">{row.createdAt}</TableCell>
+        <TableCell align="center">{dateFormat(row.createdAt)}</TableCell>
         <TableCell align="center">{rowStatus[row.status.name]}</TableCell>
         <TableCell
           align="right"

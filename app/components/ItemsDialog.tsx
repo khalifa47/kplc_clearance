@@ -13,7 +13,7 @@ import TableRow from "@mui/material/TableRow";
 
 import CloseIcon from "@mui/icons-material/Close";
 import { TableContainer } from "@mui/material";
-import { capitalize } from "@/utils/helpers";
+import { capitalize, dateFormat } from "@/utils/helpers";
 
 const ItemsDialog = ({
   dept,
@@ -104,9 +104,13 @@ const ItemsDialog = ({
                   <TableCell align="center">
                     {capitalize(item.item.name)}
                   </TableCell>
-                  <TableCell align="center">{item.assignedOn}</TableCell>
                   <TableCell align="center">
-                    {item.returnedOn ? item.returnedOn : "Not Returned"}
+                    {dateFormat(item.assignedOn)}
+                  </TableCell>
+                  <TableCell align="center">
+                    {item.returnedOn
+                      ? dateFormat(item.returnedOn)
+                      : "Not Returned"}
                   </TableCell>
                 </TableRow>
               ))}

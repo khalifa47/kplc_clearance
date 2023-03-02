@@ -12,6 +12,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
+import { dateFormat } from "@/utils/helpers";
 
 const DepartmentsTable = ({
   items,
@@ -83,7 +84,7 @@ const DepartmentsTable = ({
               Certified By
             </TableCell>
             <TableCell align="center" sx={{ fontWeight: 600 }}>
-              Date
+              Date Last Updated
             </TableCell>
             <TableCell align="center" sx={{ fontWeight: 600 }}>
               Status
@@ -128,7 +129,7 @@ const DepartmentsTable = ({
                   setDialogOpen(true);
                 }}
               >
-                {department.updatedAt}
+                {dateFormat(department.updatedAt)}
               </TableCell>
               <TableCell
                 align="center"
