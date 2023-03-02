@@ -37,12 +37,13 @@ type Item = {
     itemCategory: {
       name: string;
       department: {
+        id: number;
         name: string;
       };
     };
   };
   user?: User;
   itemId: number;
-  returnedOn: string;
+  returnedOn: string | null;
   userId: string;
 };

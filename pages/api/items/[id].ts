@@ -18,9 +18,7 @@ export default async function handler(
           itemCategory: {
             select: {
               name: true,
-              department: {
-                select: { name: true },
-              },
+              department: true,
             },
           },
         },

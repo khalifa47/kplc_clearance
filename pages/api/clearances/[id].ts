@@ -7,29 +7,55 @@ export default async function handler(
 ) {
   const { id } = req.query;
   if (req.method === "POST") {
+    const itemsRes = await fetch(`${process.env.NEXTAUTH_URL}/api/items/${id}`);
+    const items: Item[] = await itemsRes
+      .json()
+      .catch((err) => console.log(err));
+
+    const statuses = {
+      overall: items.find((item) => item.returnedOn === null) ? 3 : 4,
+      departments: {
+        1: items
+          .filter((item) => item.item.itemCategory.department.id === 1)
+          .find((item) => item.returnedOn === null)
+          ? 3
+          : 4,
+        2: items
+          .filter((item) => item.item.itemCategory.department.id === 2)
+          .find((item) => item.returnedOn === null)
+          ? 3
+          : 4,
+        3: items
+          .filter((item) => item.item.itemCategory.department.id === 3)
+          .find((item) => item.returnedOn === null)
+          ? 3
+          : 4,
+      },
+    };
+
     const clearance = await prisma.clearance.create({
       data: {
         userId: id!.toString(),
-        statusId: 3,
+        statusId: statuses.overall,
       },
     });
     await prisma.departmentClearance.createMany({
       data: [
         {
           clearanceId: clearance.id,
-          statusId: 3,
+          statusId: statuses.departments[1],
           departmentId: 1,
           clearedBy: null,
         },
         {
           clearanceId: clearance.id,
-          statusId: 3,
+          statusId: statuses.departments[2],
           departmentId: 2,
           clearedBy: null,
         },
         {
           clearanceId: clearance.id,
-          statusId: 3,
+          statusId: statuses.departments[3],
           departmentId: 3,
           clearedBy: null,
         },
