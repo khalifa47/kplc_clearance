@@ -13,9 +13,11 @@ import { useState } from "react";
 import DepartmentsTable from "./DepartmentsTable";
 import { useRouter } from "next/navigation";
 import { dateFormat } from "@/utils/helpers";
+import { useSession } from "next-auth/react";
 
 const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
   const router = useRouter();
+  const { data: session } = useSession();
 
   const [open, setOpen] = useState(false);
   const rowStatus: any = {
@@ -66,7 +68,7 @@ const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
           align="right"
           sx={{ borderTop: "1px solid rgba(224, 224, 224, 1)" }}
         >
-          {row.status.name === "progress" && (
+          {row.status.name === "progress" && session?.user.roleId === 1 && (
             <IconButton color="primary" onClick={handleClearanceApproval}>
               <CheckIcon />
             </IconButton>
@@ -79,6 +81,7 @@ const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <DepartmentsTable
+              userRole={session?.user.role?.name}
               departments={row.DepartmentClearance}
               items={items}
               small

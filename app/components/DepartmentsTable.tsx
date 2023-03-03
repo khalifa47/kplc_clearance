@@ -15,10 +15,12 @@ import { useSession } from "next-auth/react";
 import { dateFormat } from "@/utils/helpers";
 
 const DepartmentsTable = ({
+  userRole,
   items,
   departments,
   small = false,
 }: {
+  userRole?: string;
   items: Item[];
   departments: Array<DepartmentStatus>;
   small?: boolean;
@@ -144,16 +146,17 @@ const DepartmentsTable = ({
                 align="right"
                 sx={{ borderTop: "1px solid rgba(224, 224, 224, 1)" }}
               >
-                {department.status.name === "progress" && (
-                  <IconButton
-                    color="primary"
-                    onClick={() =>
-                      handleDepartmentClearanceApproval(department.id)
-                    }
-                  >
-                    <CheckIcon />
-                  </IconButton>
-                )}
+                {department.status.name === "progress" &&
+                  userRole === department.department.name && (
+                    <IconButton
+                      color="primary"
+                      onClick={() =>
+                        handleDepartmentClearanceApproval(department.id)
+                      }
+                    >
+                      <CheckIcon />
+                    </IconButton>
+                  )}
               </TableCell>
             </TableRow>
           ))}

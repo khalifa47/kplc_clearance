@@ -22,6 +22,9 @@ export const authOptions: AuthOptions = {
             id: staff_id,
             password: password,
           },
+          include: {
+            role: true,
+          },
         });
         return user;
       },
@@ -33,7 +36,7 @@ export const authOptions: AuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: process.env.JWT_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
   callbacks: {
     async jwt({ token, user }) {
       return { ...token, ...user };
