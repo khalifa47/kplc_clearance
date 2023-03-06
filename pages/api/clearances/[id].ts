@@ -15,23 +15,32 @@ export default async function handler(
       .catch((err) => console.log(err));
 
     const statuses = {
-      overall: items.find((item) => item.returnedOn === null) ? 3 : 4,
+      overall:
+        items.length !== 0 && items.find((item) => item.returnedOn === null)
+          ? 3
+          : 4,
       departments: {
-        1: items
-          .filter((item) => item.item.itemCategory.department.id === 1)
-          .find((item) => item.returnedOn === null)
-          ? 3
-          : 4,
-        2: items
-          .filter((item) => item.item.itemCategory.department.id === 2)
-          .find((item) => item.returnedOn === null)
-          ? 3
-          : 4,
-        3: items
-          .filter((item) => item.item.itemCategory.department.id === 3)
-          .find((item) => item.returnedOn === null)
-          ? 3
-          : 4,
+        1:
+          items.length !== 0 &&
+          items
+            .filter((item) => item.item.itemCategory.department.id === 1)
+            .find((item) => item.returnedOn === null)
+            ? 3
+            : 4,
+        2:
+          items.length !== 0 &&
+          items
+            .filter((item) => item.item.itemCategory.department.id === 2)
+            .find((item) => item.returnedOn === null)
+            ? 3
+            : 4,
+        3:
+          items.length !== 0 &&
+          items
+            .filter((item) => item.item.itemCategory.department.id === 3)
+            .find((item) => item.returnedOn === null)
+            ? 3
+            : 4,
       },
     };
 
