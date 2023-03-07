@@ -9,27 +9,22 @@ import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import Pagination from "@mui/material/Pagination";
+import TablePagination from "@mui/material/TablePagination";
 import Row from "./Row";
 import SearchBar from "./SearchBar";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { searchClearancesByUser } from "@/utils/helpers";
 
 const AdminTable = ({
   clearances,
-  startPage,
-  count,
   items,
 }: {
   clearances: Clearance[];
-  startPage: number;
-  count: number;
   items: Item[];
 }) => {
   // pagination states
-  const router = useRouter();
-  const [page, setPage] = useState(startPage);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(5);
 
   // search states
   const [shownClearances, setShownClearances] = useState(clearances);
@@ -46,13 +41,14 @@ const AdminTable = ({
     setShownClearances(searchedClearances);
   };
 
-  // pagination function
-  const handlePaginationChange = (
-    e: React.ChangeEvent<unknown>,
-    value: number
-  ) => {
+  // pagination functions
+  const handlePaginationChange = (e: unknown, value: number) => {
     setPage(value);
-    router.push(`/admin?page=${value}`);
+  };
+
+  const handleChangeRowsPerPage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(e.target.value, 10));
+    setPage(0);
   };
 
   return (
@@ -96,8 +92,16 @@ const AdminTable = ({
             </TableRow>
           </TableHead>
           <TableBody>
-            {search !== ""
-              ? shownClearances.map((clearance) => (
+            {shownClearances.length === 0 ? (
+              <TableRow>
+                <TableCell align="center" colSpan={6} sx={{ fontSize: 20 }}>
+                  No user found
+                </TableCell>
+              </TableRow>
+            ) : (
+              shownClearances
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((clearance) => (
                   <Row
                     key={clearance.id}
                     row={clearance}
@@ -106,24 +110,17 @@ const AdminTable = ({
                     )}
                   />
                 ))
-              : clearances.map((clearance) => (
-                  <Row
-                    key={clearance.id}
-                    row={clearance}
-                    items={items.filter(
-                      (item) => item.user?.id === clearance.user.id
-                    )}
-                  />
-                ))}
+            )}
           </TableBody>
         </Table>
-        <Pagination
-          count={Math.ceil(count / 3.0)}
-          color="primary"
-          size="large"
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 25]}
+          component="div"
+          count={shownClearances.length}
+          rowsPerPage={rowsPerPage}
           page={page}
-          sx={{ p: 2, m: "0 auto" }}
-          onChange={handlePaginationChange}
+          onPageChange={handlePaginationChange}
+          onRowsPerPageChange={handleChangeRowsPerPage}
         />
       </TableContainer>
     </>

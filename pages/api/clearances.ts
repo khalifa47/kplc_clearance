@@ -5,20 +5,7 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponse<any>
 ) {
-  const clearanceCount = await prisma.clearance.count();
-
-  const offset = 3;
-  const { page } = req.query;
-  let shownPage =
-    page &&
-    typeof page === "string" &&
-    parseInt(page) <= Math.ceil(clearanceCount / offset)
-      ? parseInt(page)
-      : 1;
-
   const clearances = await prisma.clearance.findMany({
-    skip: offset * shownPage - offset,
-    take: offset,
     include: {
       status: {
         select: {
@@ -56,9 +43,7 @@ export default async function handler(
   });
 
   if (clearances) {
-    res
-      .status(200)
-      .json({ clearances: clearances, clearanceCount: clearanceCount });
+    res.status(200).json(clearances);
   } else {
     res.status(404).json("Clearances not found");
   }
