@@ -29,7 +29,10 @@ export default async function Dashboard() {
       {clearance ? (
         <ClearanceTable clearance={clearance} items={items} />
       ) : (
-        <ClearanceForm uid={session?.user.id!} />
+        <ClearanceForm
+          uid={session?.user.id!}
+          name={`${session?.user.firstName} ${session?.user.lastName}`}
+        />
       )}
     </main>
   );
