@@ -143,6 +143,12 @@ export default async function handler(
             id: true,
             firstName: true,
             lastName: true,
+            region: {
+              select: { name: true },
+            },
+            department: {
+              select: { name: true },
+            },
           },
         },
         DepartmentClearance: {

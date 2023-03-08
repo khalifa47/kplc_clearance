@@ -38,28 +38,44 @@ model Department {
   name                String
   DepartmentClearance DepartmentClearance[]
   ItemCategory        ItemCategories[]
+  User                User[]
+  email               String                @unique
 
   @@map("departments")
 }
 
+model Region {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  User User[]
+
+  @@map("regions")
+}
+
 model User {
-  id                  String                @id @default(cuid())
-  firstName           String                @map("first_name")
-  lastName            String                @map("last_name")
-  password            String
-  roleId              Int                   @map("role_id")
-  statusId            Int                   @map("status_id")
-  role                Role                  @relation(fields: [roleId], references: [id], onDelete: Cascade)
-  status              Status                @relation(fields: [statusId], references: [id], onDelete: Cascade)
-  // email         String?   @unique
-  // emailVerified DateTime?
-  // image         String?
+  id           String @id @default(cuid())
+  firstName    String @map("first_name")
+  lastName     String @map("last_name")
+  password     String
+  roleId       Int    @map("role_id")
+  statusId     Int    @map("status_id")
+  regionId     Int    @map("region_id")
+  departmentId Int    @map("department_id")
+
+  role       Role       @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  status     Status     @relation(fields: [statusId], references: [id], onDelete: Cascade)
+  region     Region     @relation(fields: [regionId], references: [id], onDelete: Cascade)
+  department Department @relation(fields: [departmentId], references: [id], onDelete: Cascade)
+
   Clearance           Clearance[]
   DepartmentClearance DepartmentClearance[]
   AssignedItems       AssignedItems[]
 
   @@map("users")
 }
+
+// email on departments
 
 model Clearance {
   id        Int      @id @default(autoincrement())
@@ -76,12 +92,12 @@ model Clearance {
 }
 
 model DepartmentClearance {
-  id           Int     @id @default(autoincrement())
-  clearanceId  Int     @map("clearance_id")
-  statusId     Int     @map("status_id")
-  departmentId Int     @map("department_id")
-  clearedBy    String? @map("cleared_by")
-  updatedAt DateTime   @updatedAt @default(now())
+  id           Int      @id @default(autoincrement())
+  clearanceId  Int      @map("clearance_id")
+  statusId     Int      @map("status_id")
+  departmentId Int      @map("department_id")
+  clearedBy    String?  @map("cleared_by")
+  updatedAt    DateTime @default(now()) @updatedAt
 
   clearance  Clearance  @relation(fields: [clearanceId], references: [id], onDelete: Cascade)
   user       User?      @relation(fields: [clearedBy], references: [id], onDelete: Cascade)

@@ -67,7 +67,7 @@ const AdminTable = ({
                   Clearances
                 </Typography>
               </TableCell>
-              <TableCell>
+              <TableCell colSpan={10}>
                 <SearchBar
                   search={search}
                   handleChangeSearch={handleChangeSearch}
@@ -84,6 +84,12 @@ const AdminTable = ({
                 User
               </TableCell>
               <TableCell sx={{ fontWeight: 600 }} align="center">
+                Region
+              </TableCell>
+              <TableCell sx={{ fontWeight: 600 }} align="center">
+                Division
+              </TableCell>
+              <TableCell sx={{ fontWeight: 600 }} align="center">
                 Date Initiated
               </TableCell>
               <TableCell sx={{ fontWeight: 600 }} align="center">
@@ -94,7 +100,7 @@ const AdminTable = ({
           <TableBody>
             {shownClearances.length === 0 ? (
               <TableRow>
-                <TableCell align="center" colSpan={6} sx={{ fontSize: 20 }}>
+                <TableCell align="center" colSpan={8} sx={{ fontSize: 20 }}>
                   No user found
                 </TableCell>
               </TableRow>

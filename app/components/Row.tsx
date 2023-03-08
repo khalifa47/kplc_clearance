@@ -12,7 +12,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import DepartmentsTable from "./DepartmentsTable";
 import { useRouter } from "next/navigation";
-import { dateFormat } from "@/utils/helpers";
+import { dateFormat, capitalize } from "@/utils/helpers";
 import { useSession } from "next-auth/react";
 
 const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
@@ -56,11 +56,13 @@ const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
         </TableCell>
-        <TableCell component="th" scope="row" align="center">
-          {row.userId}
-        </TableCell>
-        <TableCell component="th" scope="row" align="center">
+        <TableCell align="center">{row.userId}</TableCell>
+        <TableCell align="center">
           {`${row.user.firstName} ${row.user.lastName}`}
+        </TableCell>
+        <TableCell align="center">{capitalize(row.user.region.name)}</TableCell>
+        <TableCell align="center">
+          {row.user.department.name.toUpperCase()}
         </TableCell>
         <TableCell align="center">{dateFormat(row.createdAt)}</TableCell>
         <TableCell align="center">{rowStatus[row.status.name]}</TableCell>
@@ -78,7 +80,7 @@ const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
 
       {/* Sub Table */}
       <TableRow>
-        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
+        <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <DepartmentsTable
               userRole={session?.user.role?.name}

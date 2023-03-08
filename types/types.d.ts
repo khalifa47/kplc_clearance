@@ -14,6 +14,8 @@ type User = {
   id: string;
   firstName: string;
   lastName: string;
+  region: { name: string };
+  department: { name: string };
 };
 
 type Status = "progress" | "approved" | "pending";
