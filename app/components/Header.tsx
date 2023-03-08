@@ -20,6 +20,7 @@ import { useState } from "react";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { capitalize } from "@/utils/helpers";
 
 const Header = ({
   drawerWidth,
@@ -107,12 +108,29 @@ const Header = ({
             />
           </Box>
 
-          <Box sx={{ display: { xs: "none", md: "flex" } }}>
+          <Box
+            sx={{
+              display: { xs: "none", md: "flex" },
+            }}
+          >
             <Typography variant="h6">
               Hello,{" "}
               <Typography component={"span"} variant="h5" fontWeight={600}>
                 {user?.firstName}
               </Typography>
+            </Typography>
+            <Typography
+              variant="h6"
+              textAlign="center"
+              ml={{ md: 7, lg: 27, xl: 50 }}
+            >
+              Welcome to the{" "}
+              <Typography component={"span"} variant="h5" fontWeight={600}>
+                {user?.role?.name === "ict"
+                  ? "ICT"
+                  : capitalize(user!!.role!!.name!!)}{" "}
+              </Typography>
+              dashboard
             </Typography>
           </Box>
 
