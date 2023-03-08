@@ -56,12 +56,6 @@ const ItemsDialog = ({
                   sx={{ fontWeight: 600, fontSize: 16 }}
                   align="center"
                 >
-                  Serial
-                </TableCell>
-                <TableCell
-                  sx={{ fontWeight: 600, fontSize: 16 }}
-                  align="center"
-                >
                   Item Category
                 </TableCell>
                 <TableCell
@@ -69,6 +63,12 @@ const ItemsDialog = ({
                   align="center"
                 >
                   Item
+                </TableCell>
+                <TableCell
+                  sx={{ fontWeight: 600, fontSize: 16 }}
+                  align="center"
+                >
+                  Serial
                 </TableCell>
                 <TableCell
                   sx={{ fontWeight: 600, fontSize: 16 }}
@@ -95,15 +95,13 @@ const ItemsDialog = ({
                     },
                   }}
                 >
-                  <TableCell component="th" scope="row" align="center">
-                    {item.item.id}
-                  </TableCell>
                   <TableCell align="center">
                     {capitalize(item.item.itemCategory.name)}
                   </TableCell>
                   <TableCell align="center">
                     {capitalize(item.item.name)}
                   </TableCell>
+                  <TableCell align="center">{item.item.id}</TableCell>
                   <TableCell align="center">
                     {dateFormat(item.assignedOn)}
                   </TableCell>
