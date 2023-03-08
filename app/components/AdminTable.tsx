@@ -83,10 +83,22 @@ const AdminTable = ({
               <TableCell sx={{ fontWeight: 600 }} align="center">
                 User
               </TableCell>
-              <TableCell sx={{ fontWeight: 600 }} align="center">
+              <TableCell
+                sx={{
+                  fontWeight: 600,
+                  display: { xs: "none", md: "table-cell" },
+                }}
+                align="center"
+              >
                 Region
               </TableCell>
-              <TableCell sx={{ fontWeight: 600 }} align="center">
+              <TableCell
+                sx={{
+                  fontWeight: 600,
+                  display: { xs: "none", md: "table-cell" },
+                }}
+                align="center"
+              >
                 Division
               </TableCell>
               <TableCell sx={{ fontWeight: 600 }} align="center">

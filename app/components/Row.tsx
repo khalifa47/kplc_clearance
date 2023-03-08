@@ -60,8 +60,16 @@ const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
         <TableCell align="center">
           {`${row.user.firstName} ${row.user.lastName}`}
         </TableCell>
-        <TableCell align="center">{capitalize(row.user.region.name)}</TableCell>
-        <TableCell align="center">
+        <TableCell
+          align="center"
+          sx={{ display: { xs: "none", md: "table-cell" } }}
+        >
+          {capitalize(row.user.region.name)}
+        </TableCell>
+        <TableCell
+          align="center"
+          sx={{ display: { xs: "none", md: "table-cell" } }}
+        >
           {row.user.department.name.toUpperCase()}
         </TableCell>
         <TableCell align="center">{dateFormat(row.createdAt)}</TableCell>
