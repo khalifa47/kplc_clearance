@@ -70,6 +70,7 @@ export default async function handler(
       ],
       skipDuplicates: true,
     });
+    return res.status(200).json("Successfully created clearance");
 
     // updating a clearance
   } else if (req.method === "PATCH") {
