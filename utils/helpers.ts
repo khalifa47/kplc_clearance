@@ -10,7 +10,7 @@ export const capitalize = (sentence: string) => {
 // date format function
 export const dateFormat = (dateString: string) => {
   const date = new Date(dateString);
-  date.setHours(date.getHours() + 3);
+  // date.setHours(date.getHours() + 3);
   const options: Intl.DateTimeFormatOptions = {
     year: "numeric",
     month: "long",
@@ -26,9 +26,9 @@ export const searchClearancesByUser = (
   clearances: Clearance[],
   keyword: string
 ) => {
-  if (keyword === "") return clearances;
+  if (keyword === "*") return clearances;
   return clearances.filter((clearance) => {
-    const searchFields = `${clearance.user.id} ${clearance.user.firstName} ${clearance.user.lastName}`;
+    const searchFields = `${clearance.user.id} ${clearance.user.firstName} ${clearance.user.lastName} ${clearance.user.region.name} ${clearance.user.department.name}`;
 
     const searchFieldsLowerCase = searchFields.toLowerCase();
     const keywordLowerCase = keyword.toLowerCase();

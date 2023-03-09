@@ -15,10 +15,7 @@ export default async function handler(
       .catch((err) => console.log(err));
 
     const statuses = {
-      overall:
-        items.length !== 0 && items.find((item) => item.returnedOn === null)
-          ? 3
-          : 4,
+      overall: 3,
       departments: {
         1:
           items.length !== 0 &&
