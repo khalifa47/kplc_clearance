@@ -33,14 +33,9 @@ const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
         "content-type": "application/json",
       },
       body: JSON.stringify({ clearanceId: row.id }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
-      })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+    }).catch((error) => {
+      console.error("Error:", error);
+    });
     router.refresh();
   };
 
@@ -92,6 +87,7 @@ const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
           <Collapse in={open} timeout="auto" unmountOnExit>
             <DepartmentsTable
               userRole={session?.user.role?.name}
+              userToBeCleared={`${row.user.firstName} ${row.user.lastName}`}
               departments={row.DepartmentClearance}
               items={items}
               small

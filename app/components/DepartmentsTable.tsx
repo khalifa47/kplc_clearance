@@ -12,15 +12,17 @@ import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { dateFormat } from "@/utils/helpers";
+import { dateFormat, sendEmail } from "@/utils/helpers";
 
 const DepartmentsTable = ({
   userRole,
+  userToBeCleared,
   items,
   departments,
   small = false,
 }: {
   userRole?: string;
+  userToBeCleared?: string;
   items: Item[];
   departments: Array<DepartmentStatus>;
   small?: boolean;
@@ -52,12 +54,17 @@ const DepartmentsTable = ({
       }),
     })
       .then((response) => response.json())
-      .then((data) => {
-        console.log("Success:", data);
+      .then(async (data) => {
+        if (data.uid) {
+          await sendEmail(
+            userToBeCleared!,
+            data.uid,
+            "kplc.paymaster.admin@yopmail.com"
+          );
+        }
       })
-      .catch((error) => {
-        console.error("Error:", error);
-      });
+      .catch((error) => console.error("Error:", error));
+
     router.refresh();
   };
 

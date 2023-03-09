@@ -1,3 +1,6 @@
+import { EmailJSResponseStatus } from "@emailjs/browser";
+import emailjs from "@emailjs/browser";
+
 export const capitalize = (sentence: string) => {
   const words = sentence.split(" ");
 
@@ -35,4 +38,25 @@ export const searchClearancesByUser = (
 
     return searchFieldsLowerCase.indexOf(keywordLowerCase) !== -1;
   });
+};
+
+export const sendEmail = async (
+  fromName: string,
+  fromId: string,
+  addressedTo: String | String[]
+) => {
+  // sending email
+  const emailParams = {
+    from_name: fromName,
+    from_id: fromId,
+    to_address: addressedTo,
+    link_to: "http://localhost:3000/admin",
+  };
+  const res: EmailJSResponseStatus = await emailjs.send(
+    "service_r034ivr",
+    "template_hsxse9p",
+    emailParams,
+    "faPEvDhcVnB1PzJzo"
+  );
+  console.log(res);
 };

@@ -85,6 +85,9 @@ export default async function handler(
           clearedBy: req.body.clearanceAdminId,
         },
       });
+      // .catch((err) => {
+      //   throw new Error("Error: ", err);
+      // });
 
       const clearancesDept = await prisma.departmentClearance.findMany({
         where: {
@@ -104,7 +107,12 @@ export default async function handler(
             statusId: 4,
           },
         });
+        // .catch((err) => {
+        //   throw new Error("Error: ", err);
+        // });
+        return res.status(200).json({ uid: id });
       }
+      return res.status(200).json("Successfully updated dept clearance");
     } else {
       // overall clearance update
       await prisma.clearance.update({
@@ -115,6 +123,9 @@ export default async function handler(
           statusId: 5,
         },
       });
+      // .catch((err) => {
+      //   throw new Error("Error: ", err);
+      // });
       await prisma.user.update({
         where: {
           id: id?.toString(),
@@ -123,6 +134,11 @@ export default async function handler(
           statusId: 2,
         },
       });
+      // .catch((err) => {
+      //   throw new Error("Error: ", err);
+      // });
+
+      return res.status(200).json("Successfully updated overall clearances");
     }
   } else {
     // get clearance
