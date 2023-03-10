@@ -142,7 +142,7 @@ export default async function handler(
     }
   } else {
     // get clearance
-    const clearance = await prisma.clearance.findFirstOrThrow({
+    const clearance = await prisma.clearance.findFirst({
       where: {
         userId: id?.toString(),
       },
