@@ -4,6 +4,7 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Box from "@mui/material/Box";
+import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import ItemsDialog from "./ItemsDialog";
@@ -14,14 +15,12 @@ import { useSession } from "next-auth/react";
 import { dateFormat, sendEmail } from "@/utils/helpers";
 
 const DepartmentsTable = ({
-  rowStatus,
   userRole,
   userToBeCleared,
   items,
   departments,
   small = false,
 }: {
-  rowStatus: any;
   userRole?: string;
   userToBeCleared?: string;
   items: Item[];
@@ -33,6 +32,12 @@ const DepartmentsTable = ({
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [selectedDept, setSelectedDept] = useState<string>("");
+
+  const rowStatus = {
+    pending: <Chip label="Pending" color="error" />,
+    progress: <Chip label="In Progress" color="warning" />,
+    approved: <Chip label="Approved" color="success" />,
+  };
 
   const handleDepartmentClearanceApproval = async (
     departmentClearanceId: number

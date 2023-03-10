@@ -87,7 +87,6 @@ const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <DepartmentsTable
-              rowStatus={rowStatus}
               userRole={session?.user.role?.name}
               userToBeCleared={`${row.user.firstName} ${row.user.lastName}`}
               departments={row.DepartmentClearance}
