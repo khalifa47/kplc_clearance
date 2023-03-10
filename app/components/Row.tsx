@@ -11,32 +11,33 @@ import CheckIcon from "@mui/icons-material/Check";
 
 import { useState } from "react";
 import DepartmentsTable from "./DepartmentsTable";
-import { useRouter } from "next/navigation";
 import { dateFormat, capitalize } from "@/utils/helpers";
 import { useSession } from "next-auth/react";
 
 const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
-  const router = useRouter();
+  const [status, setStatus] = useState(row.status.name);
+
   const { data: session } = useSession();
 
   const [open, setOpen] = useState(false);
-  const rowStatus: any = {
+  const rowStatus = {
     pending: <Chip label="Pending" color="error" />,
     progress: <Chip label="In Progress" color="warning" />,
     approved: <Chip label="Approved" color="success" />,
   };
 
   const handleClearanceApproval = async () => {
-    fetch(`/api/clearances/${row.userId}`, {
+    await fetch(`/api/clearances/${row.userId}`, {
       method: "PATCH",
       headers: {
         "content-type": "application/json",
       },
       body: JSON.stringify({ clearanceId: row.id }),
-    }).catch((error) => {
-      console.error("Error:", error);
-    });
-    router.refresh();
+    })
+      .then((res) => setStatus("approved"))
+      .catch((error) => {
+        console.error("Error:", error);
+      });
   };
 
   return (
@@ -68,12 +69,12 @@ const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
           {row.user.department.name.toUpperCase()}
         </TableCell>
         <TableCell align="center">{dateFormat(row.createdAt)}</TableCell>
-        <TableCell align="center">{rowStatus[row.status.name]}</TableCell>
+        <TableCell align="center">{rowStatus[status]}</TableCell>
         <TableCell
           align="right"
           sx={{ borderTop: "1px solid rgba(224, 224, 224, 1)" }}
         >
-          {row.status.name === "progress" && session?.user.roleId === 1 && (
+          {status === "progress" && session?.user.roleId === 1 && (
             <IconButton color="primary" onClick={handleClearanceApproval}>
               <CheckIcon />
             </IconButton>
@@ -86,6 +87,7 @@ const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={8}>
           <Collapse in={open} timeout="auto" unmountOnExit>
             <DepartmentsTable
+              rowStatus={rowStatus}
               userRole={session?.user.role?.name}
               userToBeCleared={`${row.user.firstName} ${row.user.lastName}`}
               departments={row.DepartmentClearance}
