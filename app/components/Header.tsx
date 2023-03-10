@@ -20,7 +20,6 @@ import { useState } from "react";
 import Image from "next/image";
 import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import { capitalize } from "@/utils/helpers";
 
 const Header = ({
   drawerWidth,
@@ -126,9 +125,7 @@ const Header = ({
             >
               Welcome to the{" "}
               <Typography component={"span"} variant="h5" fontWeight={600}>
-                {user?.role?.name === "ict"
-                  ? "ICT"
-                  : capitalize(user!!.role!!.name!!)}{" "}
+                {user!!.role!!.name!!.toUpperCase()}{" "}
               </Typography>
               dashboard
             </Typography>
