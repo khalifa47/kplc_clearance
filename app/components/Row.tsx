@@ -92,6 +92,7 @@ const Row = ({ row, items }: { row: Clearance; items: Item[] }) => {
               departments={row.DepartmentClearance}
               items={items}
               small
+              handleOverallClearance={() => setStatus("progress")}
             />
           </Collapse>
         </TableCell>

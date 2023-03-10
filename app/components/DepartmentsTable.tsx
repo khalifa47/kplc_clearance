@@ -4,15 +4,11 @@ import TableCell from "@mui/material/TableCell";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Box from "@mui/material/Box";
-import Chip from "@mui/material/Chip";
 import Typography from "@mui/material/Typography";
-import IconButton from "@mui/material/IconButton";
 import ItemsDialog from "./ItemsDialog";
-import CheckIcon from "@mui/icons-material/Check";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
-import { dateFormat, sendEmail } from "@/utils/helpers";
+import DepartmentRow from "./DepartmentRow";
 
 const DepartmentsTable = ({
   userRole,
@@ -20,53 +16,19 @@ const DepartmentsTable = ({
   items,
   departments,
   small = false,
+  handleOverallClearance,
 }: {
   userRole?: string;
   userToBeCleared?: string;
   items: Item[];
   departments: Array<DepartmentStatus>;
   small?: boolean;
+  handleOverallClearance?: () => void;
 }) => {
-  const router = useRouter();
   const { data: session } = useSession();
 
   const [dialogOpen, setDialogOpen] = useState<boolean>(false);
   const [selectedDept, setSelectedDept] = useState<string>("");
-
-  const rowStatus = {
-    pending: <Chip label="Pending" color="error" />,
-    progress: <Chip label="In Progress" color="warning" />,
-    approved: <Chip label="Approved" color="success" />,
-  };
-
-  const handleDepartmentClearanceApproval = async (
-    departmentClearanceId: number
-  ) => {
-    fetch(`/api/clearances/${departmentClearanceId}`, {
-      method: "PATCH",
-      headers: {
-        "content-type": "application/json",
-        dept: "true",
-      },
-      body: JSON.stringify({
-        departmentClearanceId: departmentClearanceId,
-        clearanceAdminId: session?.user.id,
-      }),
-    })
-      .then((response) => response.json())
-      .then(async (data) => {
-        if (data.uid) {
-          await sendEmail(
-            userToBeCleared!,
-            data.uid,
-            "kplc.paymaster.admin@yopmail.com"
-          );
-        }
-      })
-      .catch((error) => console.error("Error:", error));
-
-    router.refresh();
-  };
 
   return (
     <Box sx={{ m: 1 }}>
@@ -101,71 +63,21 @@ const DepartmentsTable = ({
           </TableRow>
         </TableHead>
         <TableBody>
-          {departments.map((department) => (
-            <TableRow
-              hover
-              key={department.departmentId}
-              sx={{
-                cursor: "pointer",
-              }}
-            >
-              <TableCell
-                component="th"
-                scope="row"
-                align="center"
-                onClick={() => {
-                  setSelectedDept(department.department.name.toUpperCase());
-                  setDialogOpen(true);
-                }}
-              >
-                {department.department.name.toUpperCase()}
-              </TableCell>
-              <TableCell
-                align="center"
-                onClick={() => {
-                  setSelectedDept(department.department.name.toUpperCase());
-                  setDialogOpen(true);
-                }}
-              >
-                {department.user
-                  ? `${department.user?.firstName} ${department.user?.lastName}`
-                  : "Unapproved"}
-              </TableCell>
-              <TableCell
-                align="center"
-                onClick={() => {
-                  setSelectedDept(department.department.name.toUpperCase());
-                  setDialogOpen(true);
-                }}
-              >
-                {dateFormat(department.updatedAt)}
-              </TableCell>
-              <TableCell
-                align="center"
-                onClick={() => {
-                  setSelectedDept(department.department.name.toUpperCase());
-                  setDialogOpen(true);
-                }}
-              >
-                {rowStatus[department.status.name]}
-              </TableCell>
-              <TableCell
-                align="right"
-                sx={{ borderTop: "1px solid rgba(224, 224, 224, 1)" }}
-              >
-                {department.status.name === "progress" &&
-                  userRole === department.department.name && (
-                    <IconButton
-                      color="primary"
-                      onClick={() =>
-                        handleDepartmentClearanceApproval(department.id)
-                      }
-                    >
-                      <CheckIcon />
-                    </IconButton>
-                  )}
-              </TableCell>
-            </TableRow>
+          {departments.map((departmentClearance) => (
+            <DepartmentRow
+              key={departmentClearance.id}
+              userRole={userRole}
+              userToBeCleared={userToBeCleared}
+              clearanceAdminId={session?.user.id}
+              departmentClearance={departmentClearance}
+              selectDept={() =>
+                setSelectedDept(
+                  departmentClearance.department.name.toUpperCase()
+                )
+              }
+              openDialog={() => setDialogOpen(true)}
+              handleOverallClearance={handleOverallClearance}
+            />
           ))}
         </TableBody>
       </Table>
