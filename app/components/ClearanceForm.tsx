@@ -6,7 +6,15 @@ import Box from "@mui/material/Box";
 import { useRouter } from "next/navigation";
 import { sendEmail } from "@/utils/helpers";
 
-const ClearanceForm = ({ uid, name }: { uid: string; name: string }) => {
+const ClearanceForm = ({
+  uid,
+  name,
+  roleId,
+}: {
+  uid: string;
+  name: string;
+  roleId: number;
+}) => {
   const router = useRouter();
 
   const handleClearance = async () => {
@@ -37,9 +45,19 @@ const ClearanceForm = ({ uid, name }: { uid: string; name: string }) => {
           justifyContent: "center",
         }}
       >
-        <Button variant="contained" size="large" onClick={handleClearance}>
-          Request Clearance
-        </Button>
+        {roleId === 5 ? (
+          <Button variant="contained" size="large" onClick={handleClearance}>
+            Request Clearance
+          </Button>
+        ) : (
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => router.replace("/admin")}
+          >
+            Go to Admin Dashboard
+          </Button>
+        )}
       </Box>
     </>
   );

@@ -32,6 +32,7 @@ export default async function Dashboard() {
         <ClearanceForm
           uid={session?.user.id!}
           name={`${session?.user.firstName} ${session?.user.lastName}`}
+          roleId={session?.user.roleId!}
         />
       )}
     </main>
